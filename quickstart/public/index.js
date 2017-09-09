@@ -24327,5 +24327,4 @@ function leaveRoomIfJoined() {
     activeRoom.disconnect();
   }
 }
-
 },{"twilio-video":63}]},{},[120]);
