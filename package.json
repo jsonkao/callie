@@ -18,7 +18,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/twilio/video-quickstart-js.git"
+    "url": "git+https://github.com/jkao1/callie-twillio.git"
   },
   "keywords": [
     "twilio",
@@ -29,15 +29,18 @@
     "time",
     "diggity"
   ],
-  "author": "Twilio",
+  "author": "Jkao1",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/twilio/video-quickstart-js/issues"
+    "url": "https://github.com/jkao1/callie-twillio/issues"
   },
-  "homepage": "https://github.com/twilio/video-quickstart-js#readme",
+  "homepage": "https://github.com/jkao1/callie-twillio#readme",
   "dependencies": {
+    "@google-cloud/speech": "^0.10.3",
+    "copy-webpack-plugin": "^4.0.1",
     "dotenv": "^4.0.0",
     "express": "^4.15.2",
+    "node-record-lpcm16": "^0.3.0",
     "prismjs": "^1.6.0",
     "twilio": "^3.0.0",
     "twilio-video": "^1.0.0"
