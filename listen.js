@@ -7,13 +7,13 @@ const Speech = require('@google-cloud/speech');
 const speech = Speech();
 
 // The encoding of the audio file, e.g. 'LINEAR16'
-// const encoding = 'LINEAR16';
+const encoding = 'LINEAR16';
 
 // The sample rate of the audio file in hertz, e.g. 16000
-// const sampleRateHertz = 16000;
+const sampleRateHertz = 16000;
 
 // The BCP-47 language code to use, e.g. 'en-US'
-// const languageCode = 'en-US';
+const languageCode = 'en-US';
 
 const request = {
   config: {
@@ -21,7 +21,7 @@ const request = {
     sampleRateHertz: sampleRateHertz,
     languageCode: languageCode
   },
-  interimResults: false // If you want interim results, set this to true
+  interimResults: true // If you want interim results, set this to true
 };
 
 // Create a recognize stream

@@ -1,5 +1,5 @@
 {
-  "name": "video-quickstart-js",
+  "name": "callie",
   "version": "1.0.0-dev",
   "description": "Twilio Video SDK Quick Start for JavaScript",
   "main": "index.js",
@@ -14,11 +14,12 @@
     "build:examples:mediadevices": "copyfiles -f examples/mediadevices/src/helpers.js examples/mediadevices/public && browserify examples/mediadevices/src/index.js > examples/mediadevices/public/index.js",
     "build:examples:localvideosnapshot": "copyfiles -f examples/localvideosnapshot/src/helpers.js examples/localvideosnapshot/public && browserify examples/localvideosnapshot/src/index.js > examples/localvideosnapshot/public/index.js",
     "build:quickstart": "browserify quickstart/src/index.js > quickstart/public/index.js",
-    "start": "npm run clean && npm run build && node server"
+    "start": "npm run clean && npm run build && node server",
+    "listen": "node listen.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jkao1/callie-twillio.git"
+    "url": "git+https://github.com/jkao1/callie.git"
   },
   "keywords": [
     "twilio",
@@ -32,9 +33,9 @@
   "author": "Jkao1",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jkao1/callie-twillio/issues"
+    "url": "https://github.com/jkao1/callie/issues"
   },
-  "homepage": "https://github.com/jkao1/callie-twillio#readme",
+  "homepage": "https://github.com/jkao1/callie#readme",
   "dependencies": {
     "@google-cloud/speech": "^0.10.3",
     "copy-webpack-plugin": "^4.0.1",

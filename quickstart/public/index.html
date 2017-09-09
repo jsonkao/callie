@@ -7,10 +7,10 @@
 </head>
 <body>
 <div id="remote-media"></div>
+<button id="button-listen" style="z-index:5;position:relative">listen</button>
 <div id="controls">
   <div id="preview">
       <div id="local-media"></div>
-      <br/>
       <button id="button-preview">Preview My Camera</button>
   </div>
   <div id="room-controls">
@@ -23,5 +23,22 @@
 </div>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="index.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.6.0/annyang.min.js"></script>
+<script>
+if (annyang) {
+  // Let's define a command.
+  var commands = {
+    'hello': function() { console.log('Hello world!'); }
+  };
+
+  // Add our commands to annyang
+  annyang.addCommands(commands);
+
+  // Start listening.
+  annyang.start({ autoRestart: true, continuous: false });
+  annyang.debug(true);
+  console.log('something etsting')
+}
+</script>
 </body>
 </html>
