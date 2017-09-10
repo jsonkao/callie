@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Twilio Video - Video Quickstart</title>
+  <title>Callie</title>
   <link rel="stylesheet" href="index.css">
   <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
@@ -10,7 +10,8 @@
 </head>
 <body>
 <div class="container-fluid">
-    <div id="twilio" class="col">
+<div class="row">
+    <div id="twilio" class="col-lg-8">
         <div id="remote-media"></div>
         <div id="controls">
             <div id="preview">
@@ -18,15 +19,17 @@
                 <button id="button-preview">Preview My Camera</button>
             </div>
             <div id="room-controls">
-                <p class="instructions">Room Name:</p>
                 <input id="room-name" type="text" placeholder="Enter a room name" />
                 <button id="button-join">Join Room</button>
                 <button id="button-leave">Leave Room</button>
             </div>
-            <div id="log"></div>
+            <div id="log">
+              <p>>&nbsp;Connected to application.</p>
+            </div>
         </div>
     </div>
-    <div id="app" class="col"> </div>
+    <div id="app" class="col-lg-4"> </div>
+</div>
 </div>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="index.js"></script>
