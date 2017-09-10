@@ -7,7 +7,7 @@
     "clean": "npm run clean:quickstart",
     "clean:quickstart": "rimraf public/twilio.js",
     "build": "npm run build:quickstart",
-    "build:quickstart": "browserify src/twilio.js > public/index.js && browserify src/annyang.js > public/index.js",
+    "build:quickstart": "browserify src/twilio.js > public/index.js",
     "start": "npm run clean && npm run build && webpack -d && node server",
     "watch": "webpack-dev-server --hot",
     "listen": "node listen.js"
@@ -32,7 +32,9 @@
   },
   "homepage": "https://github.com/jkao1/callie#readme",
   "dependencies": {
+    "@google-cloud/language": "^0.11.0",
     "@google-cloud/speech": "^0.10.3",
+    "axios": "^0.16.2",
     "babel": "^6.23.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",

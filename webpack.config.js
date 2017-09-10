@@ -1,4 +1,5 @@
 var path = require('path');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 var BUILD_DIR = path.resolve(__dirname, 'public');
 var APP_DIR = path.resolve(__dirname, 'src');
 
@@ -8,6 +9,11 @@ module.exports = {
     path: BUILD_DIR,
     filename: "bundle.js"
   },
+  plugins: [
+    new CopyWebpackPlugin([
+      { from: "./src/annyang.js", to: "./public" }
+    ])
+  ],
   module: {
     loaders: [
       {
