@@ -25827,15 +25827,21 @@ function leaveRoomIfJoined() {
           console.log('ERROR', err);
         });
 
-        axios
-        .get(
-          apiUrl + "/snippets"
-        )
-        .then(response => {
-          response.data.map(snippet => {
-            document.getElementById("insight").innerHTML += snippet.transcript + "\n";
-          });
-        })
+        axios.all([axios.get(apiUrl+"/snippets"), axios.get(apiUrl+"/entities")])
+          .then(axios.spread(function (snnips, ennts) {
+            const snips = snnips.data;
+            const ents = ennts.data
+            console.log(snips);
+            var snip = snips[snips.length - 1];
+//            let text = snip.transcript;
+let text="";
+            const good = ents.filter(e => snip.transcript.includes(e.name));
+            good.forEach(g => {
+              text += "<i>" + g.name + "</i>, ";
+            });
+            document.getElementById("insight").innerHTML += '<b>' + snip.participant+'</b>'+'<p>'+text+"</p>";
+//            document.getElementById("insight").innerHTML += '<b>' + snip.participant+'</b>'+'<p>'+text+"</p>";
+        }));
     });
   }
 },{"annyang":54,"axios":55,"twilio-video":90}]},{},[147]);
