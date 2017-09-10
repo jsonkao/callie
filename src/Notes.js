@@ -11,7 +11,7 @@ const styles = {
   }
 };
 const Notes = ({ entities, snippets, references, classes, railsData }) => {
-  console.log(snippets);
+  console.log(references);
   return (
     <div className={classes.Notes}>
       {entities.map(entity => {

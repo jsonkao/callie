@@ -11,7 +11,7 @@ const styles = {
   text: {
     fontFamily: "Arial",
     textDecoration: "underline",
-    fontSize: props => `${props.mentions / 10}em` <= 13 ? 13 : `${props.mentions / 10}em`,
+    fontSize: 18,
   }
 };
 
