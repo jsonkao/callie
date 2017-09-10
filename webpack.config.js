@@ -1,4 +1,3 @@
-var CopyWebpackPlugin = require('copy-webpack-plugin');
 var path = require('path');
 var BUILD_DIR = path.resolve(__dirname, 'public');
 var APP_DIR = path.resolve(__dirname, 'src');
@@ -9,11 +8,6 @@ module.exports = {
     path: BUILD_DIR,
     filename: "bundle.js"
   },
-  plugins: [
-    new CopyWebpackPlugin([
-      { from: "./public/*", to: "./dist" }
-      ])
-  ],
   module: {
     loaders: [
       {
