@@ -8,12 +8,13 @@ class Insight extends Component {
     };
   }
 
-  handleMouseOver = (event) => {
+  handleMouseOver = () => {
+    console.log("HOVERED")
     this.setState({ isPreviewOpen: true });
   };
 
   render() {
-    const { isPreviewOpen } = this.state;
+    const { isPreviewOpen, insight } = this.state;
     return (
       <div onMouseOver={this.handleMouseOver}>
         {insight}

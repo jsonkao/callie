@@ -1,9 +1,9 @@
 import React from "react";
 import Insight from "./Insight";
 
-const InsightsSidebar = ({ insights }) =>
+const Notes = ({ insights }) =>
   <div>
     {insights.map(insight => <Insight insight={insight} />)}
   </div>;
 
-export default InsightsSidebar;
+export default Notes;
