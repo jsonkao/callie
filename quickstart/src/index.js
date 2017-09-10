@@ -2,10 +2,14 @@
 
 var Video = require('twilio-video');
 
+const axios = require("axios");
+const annyang = require("annyang");
+  const apiUrl = "http://localhost:3001";
 var activeRoom;
 var previewTracks;
 var identity;
 var roomName;
+
 
 // Attach the Tracks to the DOM.
 function attachTracks(tracks, container) {
@@ -43,7 +47,7 @@ window.addEventListener('beforeunload', leaveRoomIfJoined);
 $.getJSON('/token', function(data) {
   identity = data.identity;
   document.getElementById('room-controls').style.display = 'block';
-
+  document.getElementById('identifier').innerHTML = identity;
   // Bind button to join Room.
   document.getElementById('button-join').onclick = function() {
     roomName = document.getElementById('room-name').value;
@@ -155,57 +159,7 @@ function openPreview() {
     log('Unable to access Camera and Microphone');
   });
 }
-/*
-const record = require('node-record-lpcm16');
 
-// Imports the Google Cloud client library
-const Speech = require('@google-cloud/speech');
-
-// Instantiates a client
-const speech = Speech();
-
-// The encoding of the audio file, e.g. 'LINEAR16'
-const encoding = 'LINEAR16';
-
-// The sample rate of the audio file in hertz, e.g. 16000
-const sampleRateHertz = 16000;
-
-// The BCP-47 language code to use, e.g. 'en-US'
-const languageCode = 'en-US';
-
-const request = {
-  config: {
-    encoding: encoding,
-    sampleRateHertz: sampleRateHertz,
-    languageCode: languageCode
-  },
-  interimResults: true // If you want interim results, set this to true
-};
-
-// Create a recognize stream
-const recognizeStream = speech.streamingRecognize(request)
-  .on('error', console.error)
-  .on('data', (data) =>
-      process.stdout.write(
-        (data.results[0] && data.results[0].alternatives[0])
-          ? `Transcription: ${data.results[0].alternatives[0].transcript}\n`
-          : `\n\nReached transcription time limit, press Ctrl+C\n`));
-
-// Start recording and send the microphone input to the Speech API
-record
-  .start({
-    sampleRateHertz: sampleRateHertz,
-    threshold: 0,
-    // Other options, see https://www.npmjs.com/package/node-record-lpcm16#options
-    verbose: false,
-    recordProgram: 'rec', // Try also "arecord" or "sox"
-    silence: '10.0'
-  })
-  .on('error', console.error)
-  .pipe(recognizeStream);
-
-console.log('Listening, press Ctrl+C to stop.');
-*/
 document.getElementById('button-preview').onclick = function() {
   openPreview();
 };
@@ -223,3 +177,71 @@ function leaveRoomIfJoined() {
     activeRoom.disconnect();
   }
 }
+  console.log(3);
+  if (annyang) {
+    // Let's define a command.
+    let commands = {
+      hello: function() {
+        console.log("Hello world!");
+      }
+    };
+
+    // Add our commands to annyang
+    annyang.addCommands(commands);
+
+    // Start listening.
+    annyang.start({ autoRestart: true, continuous: false });
+    annyang.addCallback("result", function(phrases) {
+      const snippet = phrases[0];
+
+      axios
+        .post(
+          apiUrl + "/snippets",
+          { transcript: snippet, call_id: 1, participant: document.getElementById('identifier').innerHTML },
+        )
+        .then(response => {
+          const snippet = response.data;
+          const document = {            
+            content: snippet.transcript,
+            type: "PLAIN_TEXT"
+          };
+          return axios
+            .post("https://language.googleapis.com/v1/documents:analyzeEntities?key=AIzaSyBcSS7wkzf-xhWzIG8Il1YlDCwI_oxj5Xw", {document,"encodingType": "UTF8"});
+        })
+        .then(response => {
+          let { entities } = response.data;
+          console.log("Entities:");
+          entities = entities.map(entity => {
+            console.log(entity.name);
+            if (entity.metadata && entity.metadata.wikipedia_url) {
+              console.log(
+                ` - Wikipedia URL: ${entity.metadata.wikipedia_url}`
+              );
+            }
+            return axios
+              .post(
+                apiUrl + "/entities",
+                { wikipedia_link: entity.metadata ? entity.metadata.wikipedia_url : null, name: entity.name }
+              )
+              .then(response => {
+                const entity = response.data;
+                return axios.post(apiUrl+"/references",{entity_id:entity.id, snippet_id: snippet.id});
+              });
+          });
+          return axios.all(entities);
+        })
+        .catch(err => {
+          console.log('ERROR', err);
+        });
+
+        axios
+        .get(
+          apiUrl + "/snippets"
+        )
+        .then(response => {
+          response.data.map(snippet => {
+            document.getElementById("insight").innerHTML += snippet.transcript + "\n";
+          });
+        })
+    });
+  }

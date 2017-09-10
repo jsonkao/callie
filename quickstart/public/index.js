@@ -972,7 +972,7 @@ return EventEmitter;
 
 };
 
-},{"events":54}],8:[function(require,module,exports){
+},{"events":80}],8:[function(require,module,exports){
 "use strict";
 /**
  * @fileoverview Exceptions
@@ -12405,7 +12405,7 @@ function unwrap(description) {
 
 module.exports = ChromeRTCPeerConnection;
 
-},{"../rtcsessiondescription/chrome":45,"../util":49,"../util/eventtarget":48,"../util/latch":50,"../util/sdp":51,"util":119}],42:[function(require,module,exports){
+},{"../rtcsessiondescription/chrome":45,"../util":49,"../util/eventtarget":48,"../util/latch":50,"../util/sdp":51,"util":146}],42:[function(require,module,exports){
 /* globals mozRTCPeerConnection, RTCPeerConnection */
 'use strict';
 
@@ -12845,7 +12845,7 @@ function overwriteWithInitiallyNegotiatedDtlsRole(description, dtlsRole) {
 
 module.exports = FirefoxRTCPeerConnection;
 
-},{"../mediastream":38,"../rtcsessiondescription/firefox":46,"../util":49,"../util/eventtarget":48,"../util/sdp":51,"util":119}],43:[function(require,module,exports){
+},{"../mediastream":38,"../rtcsessiondescription/firefox":46,"../util":49,"../util/eventtarget":48,"../util/sdp":51,"util":146}],43:[function(require,module,exports){
 'use strict';
 
 var guessBrowser = require('../util').guessBrowser;
@@ -13261,7 +13261,7 @@ function setRemoteAnswer(peerConnection, answer) {
 
 module.exports = SafariRTCPeerConnection;
 
-},{"../util":49,"../util/eventtarget":48,"../util/latch":50,"../util/sdp":51,"../util/trackmatcher":52,"util":119}],45:[function(require,module,exports){
+},{"../util":49,"../util/eventtarget":48,"../util/latch":50,"../util/sdp":51,"../util/trackmatcher":52,"util":146}],45:[function(require,module,exports){
 /* globals RTCSessionDescription */
 'use strict';
 
@@ -13406,7 +13406,7 @@ EventTarget.prototype.removeEventListener = function removeEventListener() {
 
 module.exports = EventTarget;
 
-},{"events":54}],49:[function(require,module,exports){
+},{"events":80}],49:[function(require,module,exports){
 'use strict';
 
 /**
@@ -14180,6 +14180,1418 @@ module.exports={
 }
 
 },{}],54:[function(require,module,exports){
+"use strict";var _typeof="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(a){return typeof a}:function(a){return a&&"function"==typeof Symbol&&a.constructor===Symbol&&a!==Symbol.prototype?"symbol":typeof a};
+//! annyang
+//! version : 2.6.0
+//! author  : Tal Ater @TalAter
+//! license : MIT
+//! https://www.TalAter.com/annyang/
+!function(a,b){"function"==typeof define&&define.amd?define([],function(){return a.annyang=b(a)}):"object"===("undefined"==typeof module?"undefined":_typeof(module))&&module.exports?module.exports=b(a):a.annyang=b(a)}("undefined"!=typeof window?window:void 0,function(a,b){var c,d=a.SpeechRecognition||a.webkitSpeechRecognition||a.mozSpeechRecognition||a.msSpeechRecognition||a.oSpeechRecognition;if(!d)return null;var e,f,g=[],h={start:[],error:[],end:[],soundstart:[],result:[],resultMatch:[],resultNoMatch:[],errorNetwork:[],errorPermissionBlocked:[],errorPermissionDenied:[]},i=0,j=0,k=!1,l="font-weight: bold; color: #00f;",m=!1,n=!1,o=/\s*\((.*?)\)\s*/g,p=/(\(\?:[^)]+\))\?/g,q=/(\(\?)?:\w+/g,r=/\*\w+/g,s=/[\-{}\[\]+?.,\\\^$|#]/g,t=function(a){return a=a.replace(s,"\\$&").replace(o,"(?:$1)?").replace(q,function(a,b){return b?a:"([^\\s]+)"}).replace(r,"(.*?)").replace(p,"\\s*$1?\\s*"),new RegExp("^"+a+"$","i")},u=function(a){for(var b=arguments.length,c=Array(b>1?b-1:0),d=1;d<b;d++)c[d-1]=arguments[d];a.forEach(function(a){a.callback.apply(a.context,c)})},v=function(){return e!==b},w=function(a,b){a.indexOf("%c")!==-1||b?console.log(a,b||l):console.log(a)},x=function(){v()||c.init({},!1)},y=function(a,b,c){g.push({command:a,callback:b,originalPhrase:c}),k&&w("Command successfully loaded: %c"+c,l)},z=function(a){u(h.result,a);for(var b,c=0;c<a.length;c++){b=a[c].trim(),k&&w("Speech recognized: %c"+b,l);for(var d=0,e=g.length;d<e;d++){var f=g[d],i=f.command.exec(b);if(i){var j=i.slice(1);return k&&(w("command matched: %c"+f.originalPhrase,l),j.length&&w("with parameters",j)),f.callback.apply(this,j),void u(h.resultMatch,b,f.originalPhrase,a)}}}u(h.resultNoMatch,a)};return c={init:function(l){var o=!(arguments.length>1&&arguments[1]!==b)||arguments[1];e&&e.abort&&e.abort(),e=new d,e.maxAlternatives=5,e.continuous="http:"===a.location.protocol,e.lang="en-US",e.onstart=function(){n=!0,u(h.start)},e.onsoundstart=function(){u(h.soundstart)},e.onerror=function(a){switch(u(h.error,a),a.error){case"network":u(h.errorNetwork,a);break;case"not-allowed":case"service-not-allowed":f=!1,(new Date).getTime()-i<200?u(h.errorPermissionBlocked,a):u(h.errorPermissionDenied,a)}},e.onend=function(){if(n=!1,u(h.end),f){var a=(new Date).getTime()-i;j+=1,j%10===0&&k&&w("Speech Recognition is repeatedly stopping and starting. See http://is.gd/annyang_restarts for tips."),a<1e3?setTimeout(function(){c.start({paused:m})},1e3-a):c.start({paused:m})}},e.onresult=function(a){if(m)return k&&w("Speech heard, but annyang is paused"),!1;for(var b=a.results[a.resultIndex],c=[],d=0;d<b.length;d++)c[d]=b[d].transcript;z(c)},o&&(g=[]),l.length&&this.addCommands(l)},start:function(a){x(),a=a||{},m=a.paused!==b&&!!a.paused,f=a.autoRestart===b||!!a.autoRestart,a.continuous!==b&&(e.continuous=!!a.continuous),i=(new Date).getTime();try{e.start()}catch(a){k&&w(a.message)}},abort:function(){f=!1,j=0,v()&&e.abort()},pause:function(){m=!0},resume:function(){c.start()},debug:function(){var a=!(arguments.length>0&&arguments[0]!==b)||arguments[0];k=!!a},setLanguage:function(a){x(),e.lang=a},addCommands:function(b){var c;x();for(var d in b)if(b.hasOwnProperty(d))if(c=a[b[d]]||b[d],"function"==typeof c)y(t(d),c,d);else{if(!("object"===("undefined"==typeof c?"undefined":_typeof(c))&&c.regexp instanceof RegExp)){k&&w("Can not register command: %c"+d,l);continue}y(new RegExp(c.regexp.source,"i"),c.callback,d)}},removeCommands:function(a){a===b?g=[]:(a=Array.isArray(a)?a:[a],g=g.filter(function(b){for(var c=0;c<a.length;c++)if(a[c]===b.originalPhrase)return!1;return!0}))},addCallback:function(c,d,e){var f=a[d]||d;"function"==typeof f&&h[c]!==b&&h[c].push({callback:f,context:e||this})},removeCallback:function(a,c){var d=function(a){return a.callback!==c};for(var e in h)h.hasOwnProperty(e)&&(a!==b&&a!==e||(c===b?h[e]=[]:h[e]=h[e].filter(d)))},isListening:function(){return n&&!m},getSpeechRecognizer:function(){return e},trigger:function(a){return c.isListening()?(Array.isArray(a)||(a=[a]),void z(a)):void(k&&w(n?"Speech heard, but annyang is paused":"Cannot trigger while annyang is aborted"))}}});
+},{}],55:[function(require,module,exports){
+module.exports = require('./lib/axios');
+},{"./lib/axios":57}],56:[function(require,module,exports){
+(function (process){
+'use strict';
+
+var utils = require('./../utils');
+var settle = require('./../core/settle');
+var buildURL = require('./../helpers/buildURL');
+var parseHeaders = require('./../helpers/parseHeaders');
+var isURLSameOrigin = require('./../helpers/isURLSameOrigin');
+var createError = require('../core/createError');
+var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || require('./../helpers/btoa');
+
+module.exports = function xhrAdapter(config) {
+  return new Promise(function dispatchXhrRequest(resolve, reject) {
+    var requestData = config.data;
+    var requestHeaders = config.headers;
+
+    if (utils.isFormData(requestData)) {
+      delete requestHeaders['Content-Type']; // Let the browser set it
+    }
+
+    var request = new XMLHttpRequest();
+    var loadEvent = 'onreadystatechange';
+    var xDomain = false;
+
+    // For IE 8/9 CORS support
+    // Only supports POST and GET calls and doesn't returns the response headers.
+    // DON'T do this for testing b/c XMLHttpRequest is mocked, not XDomainRequest.
+    if (process.env.NODE_ENV !== 'test' &&
+        typeof window !== 'undefined' &&
+        window.XDomainRequest && !('withCredentials' in request) &&
+        !isURLSameOrigin(config.url)) {
+      request = new window.XDomainRequest();
+      loadEvent = 'onload';
+      xDomain = true;
+      request.onprogress = function handleProgress() {};
+      request.ontimeout = function handleTimeout() {};
+    }
+
+    // HTTP basic authentication
+    if (config.auth) {
+      var username = config.auth.username || '';
+      var password = config.auth.password || '';
+      requestHeaders.Authorization = 'Basic ' + btoa(username + ':' + password);
+    }
+
+    request.open(config.method.toUpperCase(), buildURL(config.url, config.params, config.paramsSerializer), true);
+
+    // Set the request timeout in MS
+    request.timeout = config.timeout;
+
+    // Listen for ready state
+    request[loadEvent] = function handleLoad() {
+      if (!request || (request.readyState !== 4 && !xDomain)) {
+        return;
+      }
+
+      // The request errored out and we didn't get a response, this will be
+      // handled by onerror instead
+      // With one exception: request that using file: protocol, most browsers
+      // will return status as 0 even though it's a successful request
+      if (request.status === 0 && !(request.responseURL && request.responseURL.indexOf('file:') === 0)) {
+        return;
+      }
+
+      // Prepare the response
+      var responseHeaders = 'getAllResponseHeaders' in request ? parseHeaders(request.getAllResponseHeaders()) : null;
+      var responseData = !config.responseType || config.responseType === 'text' ? request.responseText : request.response;
+      var response = {
+        data: responseData,
+        // IE sends 1223 instead of 204 (https://github.com/mzabriskie/axios/issues/201)
+        status: request.status === 1223 ? 204 : request.status,
+        statusText: request.status === 1223 ? 'No Content' : request.statusText,
+        headers: responseHeaders,
+        config: config,
+        request: request
+      };
+
+      settle(resolve, reject, response);
+
+      // Clean up request
+      request = null;
+    };
+
+    // Handle low level network errors
+    request.onerror = function handleError() {
+      // Real errors are hidden from us by the browser
+      // onerror should only fire if it's a network error
+      reject(createError('Network Error', config, null, request));
+
+      // Clean up request
+      request = null;
+    };
+
+    // Handle timeout
+    request.ontimeout = function handleTimeout() {
+      reject(createError('timeout of ' + config.timeout + 'ms exceeded', config, 'ECONNABORTED',
+        request));
+
+      // Clean up request
+      request = null;
+    };
+
+    // Add xsrf header
+    // This is only done if running in a standard browser environment.
+    // Specifically not if we're in a web worker, or react-native.
+    if (utils.isStandardBrowserEnv()) {
+      var cookies = require('./../helpers/cookies');
+
+      // Add xsrf header
+      var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
+          cookies.read(config.xsrfCookieName) :
+          undefined;
+
+      if (xsrfValue) {
+        requestHeaders[config.xsrfHeaderName] = xsrfValue;
+      }
+    }
+
+    // Add headers to the request
+    if ('setRequestHeader' in request) {
+      utils.forEach(requestHeaders, function setRequestHeader(val, key) {
+        if (typeof requestData === 'undefined' && key.toLowerCase() === 'content-type') {
+          // Remove Content-Type if data is undefined
+          delete requestHeaders[key];
+        } else {
+          // Otherwise add header to the request
+          request.setRequestHeader(key, val);
+        }
+      });
+    }
+
+    // Add withCredentials to request if needed
+    if (config.withCredentials) {
+      request.withCredentials = true;
+    }
+
+    // Add responseType to request if needed
+    if (config.responseType) {
+      try {
+        request.responseType = config.responseType;
+      } catch (e) {
+        // Expected DOMException thrown by browsers not compatible XMLHttpRequest Level 2.
+        // But, this can be suppressed for 'json' type as it can be parsed by default 'transformResponse' function.
+        if (config.responseType !== 'json') {
+          throw e;
+        }
+      }
+    }
+
+    // Handle progress if needed
+    if (typeof config.onDownloadProgress === 'function') {
+      request.addEventListener('progress', config.onDownloadProgress);
+    }
+
+    // Not all browsers support upload events
+    if (typeof config.onUploadProgress === 'function' && request.upload) {
+      request.upload.addEventListener('progress', config.onUploadProgress);
+    }
+
+    if (config.cancelToken) {
+      // Handle cancellation
+      config.cancelToken.promise.then(function onCanceled(cancel) {
+        if (!request) {
+          return;
+        }
+
+        request.abort();
+        reject(cancel);
+        // Clean up request
+        request = null;
+      });
+    }
+
+    if (requestData === undefined) {
+      requestData = null;
+    }
+
+    // Send the request
+    request.send(requestData);
+  });
+};
+
+}).call(this,require('_process'))
+},{"../core/createError":63,"./../core/settle":66,"./../helpers/btoa":70,"./../helpers/buildURL":71,"./../helpers/cookies":73,"./../helpers/isURLSameOrigin":75,"./../helpers/parseHeaders":77,"./../utils":79,"_process":82}],57:[function(require,module,exports){
+'use strict';
+
+var utils = require('./utils');
+var bind = require('./helpers/bind');
+var Axios = require('./core/Axios');
+var defaults = require('./defaults');
+
+/**
+ * Create an instance of Axios
+ *
+ * @param {Object} defaultConfig The default config for the instance
+ * @return {Axios} A new instance of Axios
+ */
+function createInstance(defaultConfig) {
+  var context = new Axios(defaultConfig);
+  var instance = bind(Axios.prototype.request, context);
+
+  // Copy axios.prototype to instance
+  utils.extend(instance, Axios.prototype, context);
+
+  // Copy context to instance
+  utils.extend(instance, context);
+
+  return instance;
+}
+
+// Create the default instance to be exported
+var axios = createInstance(defaults);
+
+// Expose Axios class to allow class inheritance
+axios.Axios = Axios;
+
+// Factory for creating new instances
+axios.create = function create(instanceConfig) {
+  return createInstance(utils.merge(defaults, instanceConfig));
+};
+
+// Expose Cancel & CancelToken
+axios.Cancel = require('./cancel/Cancel');
+axios.CancelToken = require('./cancel/CancelToken');
+axios.isCancel = require('./cancel/isCancel');
+
+// Expose all/spread
+axios.all = function all(promises) {
+  return Promise.all(promises);
+};
+axios.spread = require('./helpers/spread');
+
+module.exports = axios;
+
+// Allow use of default import syntax in TypeScript
+module.exports.default = axios;
+
+},{"./cancel/Cancel":58,"./cancel/CancelToken":59,"./cancel/isCancel":60,"./core/Axios":61,"./defaults":68,"./helpers/bind":69,"./helpers/spread":78,"./utils":79}],58:[function(require,module,exports){
+'use strict';
+
+/**
+ * A `Cancel` is an object that is thrown when an operation is canceled.
+ *
+ * @class
+ * @param {string=} message The message.
+ */
+function Cancel(message) {
+  this.message = message;
+}
+
+Cancel.prototype.toString = function toString() {
+  return 'Cancel' + (this.message ? ': ' + this.message : '');
+};
+
+Cancel.prototype.__CANCEL__ = true;
+
+module.exports = Cancel;
+
+},{}],59:[function(require,module,exports){
+'use strict';
+
+var Cancel = require('./Cancel');
+
+/**
+ * A `CancelToken` is an object that can be used to request cancellation of an operation.
+ *
+ * @class
+ * @param {Function} executor The executor function.
+ */
+function CancelToken(executor) {
+  if (typeof executor !== 'function') {
+    throw new TypeError('executor must be a function.');
+  }
+
+  var resolvePromise;
+  this.promise = new Promise(function promiseExecutor(resolve) {
+    resolvePromise = resolve;
+  });
+
+  var token = this;
+  executor(function cancel(message) {
+    if (token.reason) {
+      // Cancellation has already been requested
+      return;
+    }
+
+    token.reason = new Cancel(message);
+    resolvePromise(token.reason);
+  });
+}
+
+/**
+ * Throws a `Cancel` if cancellation has been requested.
+ */
+CancelToken.prototype.throwIfRequested = function throwIfRequested() {
+  if (this.reason) {
+    throw this.reason;
+  }
+};
+
+/**
+ * Returns an object that contains a new `CancelToken` and a function that, when called,
+ * cancels the `CancelToken`.
+ */
+CancelToken.source = function source() {
+  var cancel;
+  var token = new CancelToken(function executor(c) {
+    cancel = c;
+  });
+  return {
+    token: token,
+    cancel: cancel
+  };
+};
+
+module.exports = CancelToken;
+
+},{"./Cancel":58}],60:[function(require,module,exports){
+'use strict';
+
+module.exports = function isCancel(value) {
+  return !!(value && value.__CANCEL__);
+};
+
+},{}],61:[function(require,module,exports){
+'use strict';
+
+var defaults = require('./../defaults');
+var utils = require('./../utils');
+var InterceptorManager = require('./InterceptorManager');
+var dispatchRequest = require('./dispatchRequest');
+var isAbsoluteURL = require('./../helpers/isAbsoluteURL');
+var combineURLs = require('./../helpers/combineURLs');
+
+/**
+ * Create a new instance of Axios
+ *
+ * @param {Object} instanceConfig The default config for the instance
+ */
+function Axios(instanceConfig) {
+  this.defaults = instanceConfig;
+  this.interceptors = {
+    request: new InterceptorManager(),
+    response: new InterceptorManager()
+  };
+}
+
+/**
+ * Dispatch a request
+ *
+ * @param {Object} config The config specific for this request (merged with this.defaults)
+ */
+Axios.prototype.request = function request(config) {
+  /*eslint no-param-reassign:0*/
+  // Allow for axios('example/url'[, config]) a la fetch API
+  if (typeof config === 'string') {
+    config = utils.merge({
+      url: arguments[0]
+    }, arguments[1]);
+  }
+
+  config = utils.merge(defaults, this.defaults, { method: 'get' }, config);
+  config.method = config.method.toLowerCase();
+
+  // Support baseURL config
+  if (config.baseURL && !isAbsoluteURL(config.url)) {
+    config.url = combineURLs(config.baseURL, config.url);
+  }
+
+  // Hook up interceptors middleware
+  var chain = [dispatchRequest, undefined];
+  var promise = Promise.resolve(config);
+
+  this.interceptors.request.forEach(function unshiftRequestInterceptors(interceptor) {
+    chain.unshift(interceptor.fulfilled, interceptor.rejected);
+  });
+
+  this.interceptors.response.forEach(function pushResponseInterceptors(interceptor) {
+    chain.push(interceptor.fulfilled, interceptor.rejected);
+  });
+
+  while (chain.length) {
+    promise = promise.then(chain.shift(), chain.shift());
+  }
+
+  return promise;
+};
+
+// Provide aliases for supported request methods
+utils.forEach(['delete', 'get', 'head', 'options'], function forEachMethodNoData(method) {
+  /*eslint func-names:0*/
+  Axios.prototype[method] = function(url, config) {
+    return this.request(utils.merge(config || {}, {
+      method: method,
+      url: url
+    }));
+  };
+});
+
+utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
+  /*eslint func-names:0*/
+  Axios.prototype[method] = function(url, data, config) {
+    return this.request(utils.merge(config || {}, {
+      method: method,
+      url: url,
+      data: data
+    }));
+  };
+});
+
+module.exports = Axios;
+
+},{"./../defaults":68,"./../helpers/combineURLs":72,"./../helpers/isAbsoluteURL":74,"./../utils":79,"./InterceptorManager":62,"./dispatchRequest":64}],62:[function(require,module,exports){
+'use strict';
+
+var utils = require('./../utils');
+
+function InterceptorManager() {
+  this.handlers = [];
+}
+
+/**
+ * Add a new interceptor to the stack
+ *
+ * @param {Function} fulfilled The function to handle `then` for a `Promise`
+ * @param {Function} rejected The function to handle `reject` for a `Promise`
+ *
+ * @return {Number} An ID used to remove interceptor later
+ */
+InterceptorManager.prototype.use = function use(fulfilled, rejected) {
+  this.handlers.push({
+    fulfilled: fulfilled,
+    rejected: rejected
+  });
+  return this.handlers.length - 1;
+};
+
+/**
+ * Remove an interceptor from the stack
+ *
+ * @param {Number} id The ID that was returned by `use`
+ */
+InterceptorManager.prototype.eject = function eject(id) {
+  if (this.handlers[id]) {
+    this.handlers[id] = null;
+  }
+};
+
+/**
+ * Iterate over all the registered interceptors
+ *
+ * This method is particularly useful for skipping over any
+ * interceptors that may have become `null` calling `eject`.
+ *
+ * @param {Function} fn The function to call for each interceptor
+ */
+InterceptorManager.prototype.forEach = function forEach(fn) {
+  utils.forEach(this.handlers, function forEachHandler(h) {
+    if (h !== null) {
+      fn(h);
+    }
+  });
+};
+
+module.exports = InterceptorManager;
+
+},{"./../utils":79}],63:[function(require,module,exports){
+'use strict';
+
+var enhanceError = require('./enhanceError');
+
+/**
+ * Create an Error with the specified message, config, error code, request and response.
+ *
+ * @param {string} message The error message.
+ * @param {Object} config The config.
+ * @param {string} [code] The error code (for example, 'ECONNABORTED').
+ * @param {Object} [request] The request.
+ * @param {Object} [response] The response.
+ * @returns {Error} The created error.
+ */
+module.exports = function createError(message, config, code, request, response) {
+  var error = new Error(message);
+  return enhanceError(error, config, code, request, response);
+};
+
+},{"./enhanceError":65}],64:[function(require,module,exports){
+'use strict';
+
+var utils = require('./../utils');
+var transformData = require('./transformData');
+var isCancel = require('../cancel/isCancel');
+var defaults = require('../defaults');
+
+/**
+ * Throws a `Cancel` if cancellation has been requested.
+ */
+function throwIfCancellationRequested(config) {
+  if (config.cancelToken) {
+    config.cancelToken.throwIfRequested();
+  }
+}
+
+/**
+ * Dispatch a request to the server using the configured adapter.
+ *
+ * @param {object} config The config that is to be used for the request
+ * @returns {Promise} The Promise to be fulfilled
+ */
+module.exports = function dispatchRequest(config) {
+  throwIfCancellationRequested(config);
+
+  // Ensure headers exist
+  config.headers = config.headers || {};
+
+  // Transform request data
+  config.data = transformData(
+    config.data,
+    config.headers,
+    config.transformRequest
+  );
+
+  // Flatten headers
+  config.headers = utils.merge(
+    config.headers.common || {},
+    config.headers[config.method] || {},
+    config.headers || {}
+  );
+
+  utils.forEach(
+    ['delete', 'get', 'head', 'post', 'put', 'patch', 'common'],
+    function cleanHeaderConfig(method) {
+      delete config.headers[method];
+    }
+  );
+
+  var adapter = config.adapter || defaults.adapter;
+
+  return adapter(config).then(function onAdapterResolution(response) {
+    throwIfCancellationRequested(config);
+
+    // Transform response data
+    response.data = transformData(
+      response.data,
+      response.headers,
+      config.transformResponse
+    );
+
+    return response;
+  }, function onAdapterRejection(reason) {
+    if (!isCancel(reason)) {
+      throwIfCancellationRequested(config);
+
+      // Transform response data
+      if (reason && reason.response) {
+        reason.response.data = transformData(
+          reason.response.data,
+          reason.response.headers,
+          config.transformResponse
+        );
+      }
+    }
+
+    return Promise.reject(reason);
+  });
+};
+
+},{"../cancel/isCancel":60,"../defaults":68,"./../utils":79,"./transformData":67}],65:[function(require,module,exports){
+'use strict';
+
+/**
+ * Update an Error with the specified config, error code, and response.
+ *
+ * @param {Error} error The error to update.
+ * @param {Object} config The config.
+ * @param {string} [code] The error code (for example, 'ECONNABORTED').
+ * @param {Object} [request] The request.
+ * @param {Object} [response] The response.
+ * @returns {Error} The error.
+ */
+module.exports = function enhanceError(error, config, code, request, response) {
+  error.config = config;
+  if (code) {
+    error.code = code;
+  }
+  error.request = request;
+  error.response = response;
+  return error;
+};
+
+},{}],66:[function(require,module,exports){
+'use strict';
+
+var createError = require('./createError');
+
+/**
+ * Resolve or reject a Promise based on response status.
+ *
+ * @param {Function} resolve A function that resolves the promise.
+ * @param {Function} reject A function that rejects the promise.
+ * @param {object} response The response.
+ */
+module.exports = function settle(resolve, reject, response) {
+  var validateStatus = response.config.validateStatus;
+  // Note: status is not exposed by XDomainRequest
+  if (!response.status || !validateStatus || validateStatus(response.status)) {
+    resolve(response);
+  } else {
+    reject(createError(
+      'Request failed with status code ' + response.status,
+      response.config,
+      null,
+      response.request,
+      response
+    ));
+  }
+};
+
+},{"./createError":63}],67:[function(require,module,exports){
+'use strict';
+
+var utils = require('./../utils');
+
+/**
+ * Transform the data for a request or a response
+ *
+ * @param {Object|String} data The data to be transformed
+ * @param {Array} headers The headers for the request or response
+ * @param {Array|Function} fns A single function or Array of functions
+ * @returns {*} The resulting transformed data
+ */
+module.exports = function transformData(data, headers, fns) {
+  /*eslint no-param-reassign:0*/
+  utils.forEach(fns, function transform(fn) {
+    data = fn(data, headers);
+  });
+
+  return data;
+};
+
+},{"./../utils":79}],68:[function(require,module,exports){
+(function (process){
+'use strict';
+
+var utils = require('./utils');
+var normalizeHeaderName = require('./helpers/normalizeHeaderName');
+
+var DEFAULT_CONTENT_TYPE = {
+  'Content-Type': 'application/x-www-form-urlencoded'
+};
+
+function setContentTypeIfUnset(headers, value) {
+  if (!utils.isUndefined(headers) && utils.isUndefined(headers['Content-Type'])) {
+    headers['Content-Type'] = value;
+  }
+}
+
+function getDefaultAdapter() {
+  var adapter;
+  if (typeof XMLHttpRequest !== 'undefined') {
+    // For browsers use XHR adapter
+    adapter = require('./adapters/xhr');
+  } else if (typeof process !== 'undefined') {
+    // For node use HTTP adapter
+    adapter = require('./adapters/http');
+  }
+  return adapter;
+}
+
+var defaults = {
+  adapter: getDefaultAdapter(),
+
+  transformRequest: [function transformRequest(data, headers) {
+    normalizeHeaderName(headers, 'Content-Type');
+    if (utils.isFormData(data) ||
+      utils.isArrayBuffer(data) ||
+      utils.isBuffer(data) ||
+      utils.isStream(data) ||
+      utils.isFile(data) ||
+      utils.isBlob(data)
+    ) {
+      return data;
+    }
+    if (utils.isArrayBufferView(data)) {
+      return data.buffer;
+    }
+    if (utils.isURLSearchParams(data)) {
+      setContentTypeIfUnset(headers, 'application/x-www-form-urlencoded;charset=utf-8');
+      return data.toString();
+    }
+    if (utils.isObject(data)) {
+      setContentTypeIfUnset(headers, 'application/json;charset=utf-8');
+      return JSON.stringify(data);
+    }
+    return data;
+  }],
+
+  transformResponse: [function transformResponse(data) {
+    /*eslint no-param-reassign:0*/
+    if (typeof data === 'string') {
+      try {
+        data = JSON.parse(data);
+      } catch (e) { /* Ignore */ }
+    }
+    return data;
+  }],
+
+  timeout: 0,
+
+  xsrfCookieName: 'XSRF-TOKEN',
+  xsrfHeaderName: 'X-XSRF-TOKEN',
+
+  maxContentLength: -1,
+
+  validateStatus: function validateStatus(status) {
+    return status >= 200 && status < 300;
+  }
+};
+
+defaults.headers = {
+  common: {
+    'Accept': 'application/json, text/plain, */*'
+  }
+};
+
+utils.forEach(['delete', 'get', 'head'], function forEachMethodNoData(method) {
+  defaults.headers[method] = {};
+});
+
+utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
+  defaults.headers[method] = utils.merge(DEFAULT_CONTENT_TYPE);
+});
+
+module.exports = defaults;
+
+}).call(this,require('_process'))
+},{"./adapters/http":56,"./adapters/xhr":56,"./helpers/normalizeHeaderName":76,"./utils":79,"_process":82}],69:[function(require,module,exports){
+'use strict';
+
+module.exports = function bind(fn, thisArg) {
+  return function wrap() {
+    var args = new Array(arguments.length);
+    for (var i = 0; i < args.length; i++) {
+      args[i] = arguments[i];
+    }
+    return fn.apply(thisArg, args);
+  };
+};
+
+},{}],70:[function(require,module,exports){
+'use strict';
+
+// btoa polyfill for IE<10 courtesy https://github.com/davidchambers/Base64.js
+
+var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+
+function E() {
+  this.message = 'String contains an invalid character';
+}
+E.prototype = new Error;
+E.prototype.code = 5;
+E.prototype.name = 'InvalidCharacterError';
+
+function btoa(input) {
+  var str = String(input);
+  var output = '';
+  for (
+    // initialize result and counter
+    var block, charCode, idx = 0, map = chars;
+    // if the next str index does not exist:
+    //   change the mapping table to "="
+    //   check if d has no fractional digits
+    str.charAt(idx | 0) || (map = '=', idx % 1);
+    // "8 - idx % 1 * 8" generates the sequence 2, 4, 6, 8
+    output += map.charAt(63 & block >> 8 - idx % 1 * 8)
+  ) {
+    charCode = str.charCodeAt(idx += 3 / 4);
+    if (charCode > 0xFF) {
+      throw new E();
+    }
+    block = block << 8 | charCode;
+  }
+  return output;
+}
+
+module.exports = btoa;
+
+},{}],71:[function(require,module,exports){
+'use strict';
+
+var utils = require('./../utils');
+
+function encode(val) {
+  return encodeURIComponent(val).
+    replace(/%40/gi, '@').
+    replace(/%3A/gi, ':').
+    replace(/%24/g, '$').
+    replace(/%2C/gi, ',').
+    replace(/%20/g, '+').
+    replace(/%5B/gi, '[').
+    replace(/%5D/gi, ']');
+}
+
+/**
+ * Build a URL by appending params to the end
+ *
+ * @param {string} url The base of the url (e.g., http://www.google.com)
+ * @param {object} [params] The params to be appended
+ * @returns {string} The formatted url
+ */
+module.exports = function buildURL(url, params, paramsSerializer) {
+  /*eslint no-param-reassign:0*/
+  if (!params) {
+    return url;
+  }
+
+  var serializedParams;
+  if (paramsSerializer) {
+    serializedParams = paramsSerializer(params);
+  } else if (utils.isURLSearchParams(params)) {
+    serializedParams = params.toString();
+  } else {
+    var parts = [];
+
+    utils.forEach(params, function serialize(val, key) {
+      if (val === null || typeof val === 'undefined') {
+        return;
+      }
+
+      if (utils.isArray(val)) {
+        key = key + '[]';
+      }
+
+      if (!utils.isArray(val)) {
+        val = [val];
+      }
+
+      utils.forEach(val, function parseValue(v) {
+        if (utils.isDate(v)) {
+          v = v.toISOString();
+        } else if (utils.isObject(v)) {
+          v = JSON.stringify(v);
+        }
+        parts.push(encode(key) + '=' + encode(v));
+      });
+    });
+
+    serializedParams = parts.join('&');
+  }
+
+  if (serializedParams) {
+    url += (url.indexOf('?') === -1 ? '?' : '&') + serializedParams;
+  }
+
+  return url;
+};
+
+},{"./../utils":79}],72:[function(require,module,exports){
+'use strict';
+
+/**
+ * Creates a new URL by combining the specified URLs
+ *
+ * @param {string} baseURL The base URL
+ * @param {string} relativeURL The relative URL
+ * @returns {string} The combined URL
+ */
+module.exports = function combineURLs(baseURL, relativeURL) {
+  return relativeURL
+    ? baseURL.replace(/\/+$/, '') + '/' + relativeURL.replace(/^\/+/, '')
+    : baseURL;
+};
+
+},{}],73:[function(require,module,exports){
+'use strict';
+
+var utils = require('./../utils');
+
+module.exports = (
+  utils.isStandardBrowserEnv() ?
+
+  // Standard browser envs support document.cookie
+  (function standardBrowserEnv() {
+    return {
+      write: function write(name, value, expires, path, domain, secure) {
+        var cookie = [];
+        cookie.push(name + '=' + encodeURIComponent(value));
+
+        if (utils.isNumber(expires)) {
+          cookie.push('expires=' + new Date(expires).toGMTString());
+        }
+
+        if (utils.isString(path)) {
+          cookie.push('path=' + path);
+        }
+
+        if (utils.isString(domain)) {
+          cookie.push('domain=' + domain);
+        }
+
+        if (secure === true) {
+          cookie.push('secure');
+        }
+
+        document.cookie = cookie.join('; ');
+      },
+
+      read: function read(name) {
+        var match = document.cookie.match(new RegExp('(^|;\\s*)(' + name + ')=([^;]*)'));
+        return (match ? decodeURIComponent(match[3]) : null);
+      },
+
+      remove: function remove(name) {
+        this.write(name, '', Date.now() - 86400000);
+      }
+    };
+  })() :
+
+  // Non standard browser env (web workers, react-native) lack needed support.
+  (function nonStandardBrowserEnv() {
+    return {
+      write: function write() {},
+      read: function read() { return null; },
+      remove: function remove() {}
+    };
+  })()
+);
+
+},{"./../utils":79}],74:[function(require,module,exports){
+'use strict';
+
+/**
+ * Determines whether the specified URL is absolute
+ *
+ * @param {string} url The URL to test
+ * @returns {boolean} True if the specified URL is absolute, otherwise false
+ */
+module.exports = function isAbsoluteURL(url) {
+  // A URL is considered absolute if it begins with "<scheme>://" or "//" (protocol-relative URL).
+  // RFC 3986 defines scheme name as a sequence of characters beginning with a letter and followed
+  // by any combination of letters, digits, plus, period, or hyphen.
+  return /^([a-z][a-z\d\+\-\.]*:)?\/\//i.test(url);
+};
+
+},{}],75:[function(require,module,exports){
+'use strict';
+
+var utils = require('./../utils');
+
+module.exports = (
+  utils.isStandardBrowserEnv() ?
+
+  // Standard browser envs have full support of the APIs needed to test
+  // whether the request URL is of the same origin as current location.
+  (function standardBrowserEnv() {
+    var msie = /(msie|trident)/i.test(navigator.userAgent);
+    var urlParsingNode = document.createElement('a');
+    var originURL;
+
+    /**
+    * Parse a URL to discover it's components
+    *
+    * @param {String} url The URL to be parsed
+    * @returns {Object}
+    */
+    function resolveURL(url) {
+      var href = url;
+
+      if (msie) {
+        // IE needs attribute set twice to normalize properties
+        urlParsingNode.setAttribute('href', href);
+        href = urlParsingNode.href;
+      }
+
+      urlParsingNode.setAttribute('href', href);
+
+      // urlParsingNode provides the UrlUtils interface - http://url.spec.whatwg.org/#urlutils
+      return {
+        href: urlParsingNode.href,
+        protocol: urlParsingNode.protocol ? urlParsingNode.protocol.replace(/:$/, '') : '',
+        host: urlParsingNode.host,
+        search: urlParsingNode.search ? urlParsingNode.search.replace(/^\?/, '') : '',
+        hash: urlParsingNode.hash ? urlParsingNode.hash.replace(/^#/, '') : '',
+        hostname: urlParsingNode.hostname,
+        port: urlParsingNode.port,
+        pathname: (urlParsingNode.pathname.charAt(0) === '/') ?
+                  urlParsingNode.pathname :
+                  '/' + urlParsingNode.pathname
+      };
+    }
+
+    originURL = resolveURL(window.location.href);
+
+    /**
+    * Determine if a URL shares the same origin as the current location
+    *
+    * @param {String} requestURL The URL to test
+    * @returns {boolean} True if URL shares the same origin, otherwise false
+    */
+    return function isURLSameOrigin(requestURL) {
+      var parsed = (utils.isString(requestURL)) ? resolveURL(requestURL) : requestURL;
+      return (parsed.protocol === originURL.protocol &&
+            parsed.host === originURL.host);
+    };
+  })() :
+
+  // Non standard browser envs (web workers, react-native) lack needed support.
+  (function nonStandardBrowserEnv() {
+    return function isURLSameOrigin() {
+      return true;
+    };
+  })()
+);
+
+},{"./../utils":79}],76:[function(require,module,exports){
+'use strict';
+
+var utils = require('../utils');
+
+module.exports = function normalizeHeaderName(headers, normalizedName) {
+  utils.forEach(headers, function processHeader(value, name) {
+    if (name !== normalizedName && name.toUpperCase() === normalizedName.toUpperCase()) {
+      headers[normalizedName] = value;
+      delete headers[name];
+    }
+  });
+};
+
+},{"../utils":79}],77:[function(require,module,exports){
+'use strict';
+
+var utils = require('./../utils');
+
+/**
+ * Parse headers into an object
+ *
+ * ```
+ * Date: Wed, 27 Aug 2014 08:58:49 GMT
+ * Content-Type: application/json
+ * Connection: keep-alive
+ * Transfer-Encoding: chunked
+ * ```
+ *
+ * @param {String} headers Headers needing to be parsed
+ * @returns {Object} Headers parsed into an object
+ */
+module.exports = function parseHeaders(headers) {
+  var parsed = {};
+  var key;
+  var val;
+  var i;
+
+  if (!headers) { return parsed; }
+
+  utils.forEach(headers.split('\n'), function parser(line) {
+    i = line.indexOf(':');
+    key = utils.trim(line.substr(0, i)).toLowerCase();
+    val = utils.trim(line.substr(i + 1));
+
+    if (key) {
+      parsed[key] = parsed[key] ? parsed[key] + ', ' + val : val;
+    }
+  });
+
+  return parsed;
+};
+
+},{"./../utils":79}],78:[function(require,module,exports){
+'use strict';
+
+/**
+ * Syntactic sugar for invoking a function and expanding an array for arguments.
+ *
+ * Common use case would be to use `Function.prototype.apply`.
+ *
+ *  ```js
+ *  function f(x, y, z) {}
+ *  var args = [1, 2, 3];
+ *  f.apply(null, args);
+ *  ```
+ *
+ * With `spread` this example can be re-written.
+ *
+ *  ```js
+ *  spread(function(x, y, z) {})([1, 2, 3]);
+ *  ```
+ *
+ * @param {Function} callback
+ * @returns {Function}
+ */
+module.exports = function spread(callback) {
+  return function wrap(arr) {
+    return callback.apply(null, arr);
+  };
+};
+
+},{}],79:[function(require,module,exports){
+'use strict';
+
+var bind = require('./helpers/bind');
+var isBuffer = require('is-buffer');
+
+/*global toString:true*/
+
+// utils is a library of generic helper functions non-specific to axios
+
+var toString = Object.prototype.toString;
+
+/**
+ * Determine if a value is an Array
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is an Array, otherwise false
+ */
+function isArray(val) {
+  return toString.call(val) === '[object Array]';
+}
+
+/**
+ * Determine if a value is an ArrayBuffer
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is an ArrayBuffer, otherwise false
+ */
+function isArrayBuffer(val) {
+  return toString.call(val) === '[object ArrayBuffer]';
+}
+
+/**
+ * Determine if a value is a FormData
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is an FormData, otherwise false
+ */
+function isFormData(val) {
+  return (typeof FormData !== 'undefined') && (val instanceof FormData);
+}
+
+/**
+ * Determine if a value is a view on an ArrayBuffer
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a view on an ArrayBuffer, otherwise false
+ */
+function isArrayBufferView(val) {
+  var result;
+  if ((typeof ArrayBuffer !== 'undefined') && (ArrayBuffer.isView)) {
+    result = ArrayBuffer.isView(val);
+  } else {
+    result = (val) && (val.buffer) && (val.buffer instanceof ArrayBuffer);
+  }
+  return result;
+}
+
+/**
+ * Determine if a value is a String
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a String, otherwise false
+ */
+function isString(val) {
+  return typeof val === 'string';
+}
+
+/**
+ * Determine if a value is a Number
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a Number, otherwise false
+ */
+function isNumber(val) {
+  return typeof val === 'number';
+}
+
+/**
+ * Determine if a value is undefined
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if the value is undefined, otherwise false
+ */
+function isUndefined(val) {
+  return typeof val === 'undefined';
+}
+
+/**
+ * Determine if a value is an Object
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is an Object, otherwise false
+ */
+function isObject(val) {
+  return val !== null && typeof val === 'object';
+}
+
+/**
+ * Determine if a value is a Date
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a Date, otherwise false
+ */
+function isDate(val) {
+  return toString.call(val) === '[object Date]';
+}
+
+/**
+ * Determine if a value is a File
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a File, otherwise false
+ */
+function isFile(val) {
+  return toString.call(val) === '[object File]';
+}
+
+/**
+ * Determine if a value is a Blob
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a Blob, otherwise false
+ */
+function isBlob(val) {
+  return toString.call(val) === '[object Blob]';
+}
+
+/**
+ * Determine if a value is a Function
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a Function, otherwise false
+ */
+function isFunction(val) {
+  return toString.call(val) === '[object Function]';
+}
+
+/**
+ * Determine if a value is a Stream
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a Stream, otherwise false
+ */
+function isStream(val) {
+  return isObject(val) && isFunction(val.pipe);
+}
+
+/**
+ * Determine if a value is a URLSearchParams object
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a URLSearchParams object, otherwise false
+ */
+function isURLSearchParams(val) {
+  return typeof URLSearchParams !== 'undefined' && val instanceof URLSearchParams;
+}
+
+/**
+ * Trim excess whitespace off the beginning and end of a string
+ *
+ * @param {String} str The String to trim
+ * @returns {String} The String freed of excess whitespace
+ */
+function trim(str) {
+  return str.replace(/^\s*/, '').replace(/\s*$/, '');
+}
+
+/**
+ * Determine if we're running in a standard browser environment
+ *
+ * This allows axios to run in a web worker, and react-native.
+ * Both environments support XMLHttpRequest, but not fully standard globals.
+ *
+ * web workers:
+ *  typeof window -> undefined
+ *  typeof document -> undefined
+ *
+ * react-native:
+ *  navigator.product -> 'ReactNative'
+ */
+function isStandardBrowserEnv() {
+  if (typeof navigator !== 'undefined' && navigator.product === 'ReactNative') {
+    return false;
+  }
+  return (
+    typeof window !== 'undefined' &&
+    typeof document !== 'undefined'
+  );
+}
+
+/**
+ * Iterate over an Array or an Object invoking a function for each item.
+ *
+ * If `obj` is an Array callback will be called passing
+ * the value, index, and complete array for each item.
+ *
+ * If 'obj' is an Object callback will be called passing
+ * the value, key, and complete object for each property.
+ *
+ * @param {Object|Array} obj The object to iterate
+ * @param {Function} fn The callback to invoke for each item
+ */
+function forEach(obj, fn) {
+  // Don't bother if no value provided
+  if (obj === null || typeof obj === 'undefined') {
+    return;
+  }
+
+  // Force an array if not already something iterable
+  if (typeof obj !== 'object' && !isArray(obj)) {
+    /*eslint no-param-reassign:0*/
+    obj = [obj];
+  }
+
+  if (isArray(obj)) {
+    // Iterate over array values
+    for (var i = 0, l = obj.length; i < l; i++) {
+      fn.call(null, obj[i], i, obj);
+    }
+  } else {
+    // Iterate over object keys
+    for (var key in obj) {
+      if (Object.prototype.hasOwnProperty.call(obj, key)) {
+        fn.call(null, obj[key], key, obj);
+      }
+    }
+  }
+}
+
+/**
+ * Accepts varargs expecting each argument to be an object, then
+ * immutably merges the properties of each object and returns result.
+ *
+ * When multiple objects contain the same key the later object in
+ * the arguments list will take precedence.
+ *
+ * Example:
+ *
+ * ```js
+ * var result = merge({foo: 123}, {foo: 456});
+ * console.log(result.foo); // outputs 456
+ * ```
+ *
+ * @param {Object} obj1 Object to merge
+ * @returns {Object} Result of all merge properties
+ */
+function merge(/* obj1, obj2, obj3, ... */) {
+  var result = {};
+  function assignValue(val, key) {
+    if (typeof result[key] === 'object' && typeof val === 'object') {
+      result[key] = merge(result[key], val);
+    } else {
+      result[key] = val;
+    }
+  }
+
+  for (var i = 0, l = arguments.length; i < l; i++) {
+    forEach(arguments[i], assignValue);
+  }
+  return result;
+}
+
+/**
+ * Extends object a by mutably adding to it the properties of object b.
+ *
+ * @param {Object} a The object to be extended
+ * @param {Object} b The object to copy properties from
+ * @param {Object} thisArg The object to bind function to
+ * @return {Object} The resulting value of object a
+ */
+function extend(a, b, thisArg) {
+  forEach(b, function assignValue(val, key) {
+    if (thisArg && typeof val === 'function') {
+      a[key] = bind(val, thisArg);
+    } else {
+      a[key] = val;
+    }
+  });
+  return a;
+}
+
+module.exports = {
+  isArray: isArray,
+  isArrayBuffer: isArrayBuffer,
+  isBuffer: isBuffer,
+  isFormData: isFormData,
+  isArrayBufferView: isArrayBufferView,
+  isString: isString,
+  isNumber: isNumber,
+  isObject: isObject,
+  isUndefined: isUndefined,
+  isDate: isDate,
+  isFile: isFile,
+  isBlob: isBlob,
+  isFunction: isFunction,
+  isStream: isStream,
+  isURLSearchParams: isURLSearchParams,
+  isStandardBrowserEnv: isStandardBrowserEnv,
+  forEach: forEach,
+  merge: merge,
+  extend: extend,
+  trim: trim
+};
+
+},{"./helpers/bind":69,"is-buffer":81}],80:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -14483,7 +15895,30 @@ function isUndefined(arg) {
   return arg === void 0;
 }
 
-},{}],55:[function(require,module,exports){
+},{}],81:[function(require,module,exports){
+/*!
+ * Determine if an object is a Buffer
+ *
+ * @author   Feross Aboukhadijeh <feross@feross.org> <http://feross.org>
+ * @license  MIT
+ */
+
+// The _isBuffer check is for Safari 5-7 support, because it's missing
+// Object.prototype.constructor. Remove this eventually
+module.exports = function (obj) {
+  return obj != null && (isBuffer(obj) || isSlowBuffer(obj) || !!obj._isBuffer)
+}
+
+function isBuffer (obj) {
+  return !!obj.constructor && typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj)
+}
+
+// For Node v0.10 support. Remove this eventually.
+function isSlowBuffer (obj) {
+  return typeof obj.readFloatLE === 'function' && typeof obj.slice === 'function' && isBuffer(obj.slice(0, 0))
+}
+
+},{}],82:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -14669,7 +16104,7 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],56:[function(require,module,exports){
+},{}],83:[function(require,module,exports){
 'use strict';
 
 var CancelablePromise = require('./util/cancelablepromise');
@@ -14719,7 +16154,7 @@ function createCancelableRoomPromise(getLocalTracks, createLocalParticipant, cre
 
 module.exports = createCancelableRoomPromise;
 
-},{"./util/cancelablepromise":104}],57:[function(require,module,exports){
+},{"./util/cancelablepromise":131}],84:[function(require,module,exports){
 'use strict';
 
 var CancelablePromise = require('./util/cancelablepromise');
@@ -15051,7 +16486,7 @@ function getLocalTracks(options, handleLocalTracks) {
 
 module.exports = connect;
 
-},{"./cancelableroompromise":56,"./createlocaltracks":59,"./iceserversource/constant":61,"./iceserversource/nts":62,"./localparticipant":64,"./media/track/localaudiotrack":67,"./media/track/localvideotrack":69,"./room":74,"./signaling/v2":84,"./util":107,"./util/cancelablepromise":104,"./util/constants":105,"./util/log":110,"@twilio/webrtc":37}],58:[function(require,module,exports){
+},{"./cancelableroompromise":83,"./createlocaltracks":86,"./iceserversource/constant":88,"./iceserversource/nts":89,"./localparticipant":91,"./media/track/localaudiotrack":94,"./media/track/localvideotrack":96,"./room":101,"./signaling/v2":111,"./util":134,"./util/cancelablepromise":131,"./util/constants":132,"./util/log":137,"@twilio/webrtc":37}],85:[function(require,module,exports){
 'use strict';
 
 var defaultCreateLocalTracks = require('./createlocaltracks');
@@ -15138,7 +16573,7 @@ module.exports = {
   video: createLocalVideoTrack
 };
 
-},{"./createlocaltracks":59,"./util/constants":105}],59:[function(require,module,exports){
+},{"./createlocaltracks":86,"./util/constants":132}],86:[function(require,module,exports){
 'use strict';
 
 var asLocalTrack = require('./util').asLocalTrack;
@@ -15244,7 +16679,7 @@ function createLocalTracks(options) {
 
 module.exports = createLocalTracks;
 
-},{"./media/track/localaudiotrack":67,"./media/track/localvideotrack":69,"./util":107,"./util/constants":105,"./util/log":110,"@twilio/webrtc":37}],60:[function(require,module,exports){
+},{"./media/track/localaudiotrack":94,"./media/track/localvideotrack":96,"./util":134,"./util/constants":132,"./util/log":137,"@twilio/webrtc":37}],87:[function(require,module,exports){
 'use strict';
 
 var request = require('./request');
@@ -15314,7 +16749,7 @@ function toQueryString(params) {
 
 module.exports.getConfiguration = getConfiguration;
 
-},{"./request":73,"./util/twilio-video-errors":112}],61:[function(require,module,exports){
+},{"./request":100,"./util/twilio-video-errors":139}],88:[function(require,module,exports){
 'use strict';
 
 var EventEmitter = require('events').EventEmitter;
@@ -15371,7 +16806,7 @@ ConstantIceServerSource.prototype.toString = function toString() {
 
 module.exports = ConstantIceServerSource;
 
-},{"events":54,"util":119}],62:[function(require,module,exports){
+},{"events":80,"util":146}],89:[function(require,module,exports){
 'use strict';
 
 var constants = require('../util/constants');
@@ -15613,7 +17048,7 @@ function poll(client) {
 
 module.exports = NTSIceServerSource;
 
-},{"../../package.json":114,"../ecs":60,"../util":107,"../util/constants":105,"../util/log":110,"../util/timeoutpromise":111,"events":54,"util":119}],63:[function(require,module,exports){
+},{"../../package.json":141,"../ecs":87,"../util":134,"../util/constants":132,"../util/log":137,"../util/timeoutpromise":138,"events":80,"util":146}],90:[function(require,module,exports){
 'use strict';
 
 var version = require('../package.json').version;
@@ -15652,7 +17087,7 @@ Object.defineProperties(Video, {
 
 module.exports = Video;
 
-},{"../package.json":114,"./connect":57,"./createlocaltrack":58,"./createlocaltracks":59,"./media/track/localaudiotrack":67,"./media/track/localvideotrack":69}],64:[function(require,module,exports){
+},{"../package.json":141,"./connect":84,"./createlocaltrack":85,"./createlocaltracks":86,"./media/track/localaudiotrack":94,"./media/track/localvideotrack":96}],91:[function(require,module,exports){
 'use strict';
 
 var util = require('./util');
@@ -15902,7 +17337,7 @@ LocalParticipant.prototype.removeTracks = function removeTracks(tracks, stop) {
 
 module.exports = LocalParticipant;
 
-},{"./media/track/localaudiotrack":67,"./media/track/localvideotrack":69,"./participant":71,"./util":107,"./util/constants":105,"@twilio/webrtc":37,"util":119}],65:[function(require,module,exports){
+},{"./media/track/localaudiotrack":94,"./media/track/localvideotrack":96,"./participant":98,"./util":134,"./util/constants":132,"@twilio/webrtc":37,"util":146}],92:[function(require,module,exports){
 'use strict';
 
 var inherits = require('util').inherits;
@@ -15933,7 +17368,7 @@ AudioTrack.prototype.detach = Track.prototype.detach;
 
 module.exports = AudioTrack;
 
-},{"./":66,"util":119}],66:[function(require,module,exports){
+},{"./":93,"util":146}],93:[function(require,module,exports){
 'use strict';
 
 var EventEmitter = require('events').EventEmitter;
@@ -16290,7 +17725,7 @@ Track.prototype._getAllAttachedElements = function _getAllAttachedElements() {
 
 module.exports = Track;
 
-},{"@twilio/webrtc":37,"events":54,"util":119}],67:[function(require,module,exports){
+},{"@twilio/webrtc":37,"events":80,"util":146}],94:[function(require,module,exports){
 'use strict';
 
 var AudioTrack = require('./audiotrack');
@@ -16356,7 +17791,7 @@ LocalAudioTrack.prototype.stop = LocalTrack.prototype.stop;
 
 module.exports = LocalAudioTrack;
 
-},{"./audiotrack":65,"./localtrack":68,"util":119}],68:[function(require,module,exports){
+},{"./audiotrack":92,"./localtrack":95,"util":146}],95:[function(require,module,exports){
 'use strict';
 
 var buildLogLevels = require('../../util').buildLogLevels;
@@ -16473,7 +17908,7 @@ LocalTrack.prototype.stop = function stop() {
 
 module.exports = LocalTrack;
 
-},{"../../signaling/localtrack":76,"../../util":107,"../../util/constants":105,"../../util/log":110,"./":66}],69:[function(require,module,exports){
+},{"../../signaling/localtrack":103,"../../util":134,"../../util/constants":132,"../../util/log":137,"./":93}],96:[function(require,module,exports){
 'use strict';
 
 var inherits = require('util').inherits;
@@ -16536,7 +17971,7 @@ LocalVideoTrack.prototype.stop = LocalTrack.prototype.stop;
 
 module.exports = LocalVideoTrack;
 
-},{"./localtrack":68,"./videotrack":70,"util":119}],70:[function(require,module,exports){
+},{"./localtrack":95,"./videotrack":97,"util":146}],97:[function(require,module,exports){
 'use strict';
 
 var inherits = require('util').inherits;
@@ -16641,7 +18076,7 @@ VideoTrack.prototype.attach = function attach(el) {
 
 module.exports = VideoTrack;
 
-},{"./":66,"util":119}],71:[function(require,module,exports){
+},{"./":93,"util":146}],98:[function(require,module,exports){
 'use strict';
 
 var DefaultAudioTrack = require('./media/track/audiotrack');
@@ -17006,7 +18441,7 @@ function reemitTrackEvents(participant, track) {
 
 module.exports = Participant;
 
-},{"./media/track/audiotrack":65,"./media/track/videotrack":70,"./util":107,"events":54,"util":119}],72:[function(require,module,exports){
+},{"./media/track/audiotrack":92,"./media/track/videotrack":97,"./util":134,"events":80,"util":146}],99:[function(require,module,exports){
 'use strict';
 
 var EventEmitter = require('events').EventEmitter;
@@ -17075,7 +18510,7 @@ QueueingEventEmitter.prototype.queue = function queue() {
 
 module.exports = QueueingEventEmitter;
 
-},{"events":54,"util":119}],73:[function(require,module,exports){
+},{"events":80,"util":146}],100:[function(require,module,exports){
 'use strict';
 
 var XHR = require('xmlhttprequest').XMLHttpRequest;
@@ -17127,7 +18562,7 @@ request.post = request.bind(null, 'POST');
 
 module.exports = request;
 
-},{"xmlhttprequest":116}],74:[function(require,module,exports){
+},{"xmlhttprequest":143}],101:[function(require,module,exports){
 'use strict';
 
 var EventEmitter = require('events').EventEmitter;
@@ -17440,7 +18875,7 @@ function handleSignalingEvents(room, signaling) {
 
 module.exports = Room;
 
-},{"./participant":71,"events":54,"util":119}],75:[function(require,module,exports){
+},{"./participant":98,"events":80,"util":146}],102:[function(require,module,exports){
 /* eslint consistent-return:0 */
 'use strict';
 
@@ -17595,7 +19030,7 @@ Signaling.prototype.open = function open() {
 
 module.exports = Signaling;
 
-},{"../statemachine":95,"./participant":77,"./room":80,"util":119}],76:[function(require,module,exports){
+},{"../statemachine":122,"./participant":104,"./room":107,"util":146}],103:[function(require,module,exports){
 'use strict';
 
 var inherits = require('util').inherits;
@@ -17620,7 +19055,7 @@ inherits(LocalTrackSignaling, TrackSignaling);
 
 module.exports = LocalTrackSignaling;
 
-},{"./track":81,"util":119}],77:[function(require,module,exports){
+},{"./track":108,"util":146}],104:[function(require,module,exports){
 'use strict';
 
 var inherits = require('util').inherits;
@@ -17759,7 +19194,7 @@ ParticipantSignaling.prototype.connect = function connect(sid, identity) {
 
 module.exports = ParticipantSignaling;
 
-},{"../statemachine":95,"util":119}],78:[function(require,module,exports){
+},{"../statemachine":122,"util":146}],105:[function(require,module,exports){
 'use strict';
 
 var EventEmitter = require('events').EventEmitter;
@@ -17819,7 +19254,7 @@ RecordingSignaling.prototype.enable = function enable(enabled) {
 
 module.exports = RecordingSignaling;
 
-},{"events":54,"util":119}],79:[function(require,module,exports){
+},{"events":80,"util":146}],106:[function(require,module,exports){
 'use strict';
 
 var inherits = require('util').inherits;
@@ -17844,7 +19279,7 @@ inherits(RemoteParticipantSignaling, ParticipantSignaling);
 
 module.exports = RemoteParticipantSignaling;
 
-},{"./participant":77,"util":119}],80:[function(require,module,exports){
+},{"./participant":104,"util":146}],107:[function(require,module,exports){
 'use strict';
 
 var inherits = require('util').inherits;
@@ -17989,7 +19424,7 @@ RoomSignaling.prototype.disconnect = function disconnect() {
 
 module.exports = RoomSignaling;
 
-},{"../statemachine":95,"./recording":78,"util":119}],81:[function(require,module,exports){
+},{"../statemachine":122,"./recording":105,"util":146}],108:[function(require,module,exports){
 'use strict';
 
 var EventEmitter = require('events').EventEmitter;
@@ -18101,7 +19536,7 @@ TrackSignaling.prototype.setMediaStreamTrack = function setMediaStreamTrack(medi
 
 module.exports = TrackSignaling;
 
-},{"../util":107,"events":54,"util":119}],82:[function(require,module,exports){
+},{"../util":134,"events":80,"util":146}],109:[function(require,module,exports){
 'use strict';
 
 var CancelablePromise = require('../../util/cancelablepromise');
@@ -18227,7 +19662,7 @@ function createCancelableRoomSignalingPromise(token, ua, localParticipant, iceSe
 
 module.exports = createCancelableRoomSignalingPromise;
 
-},{"../../util":107,"../../util/cancelablepromise":104,"../../util/twilio-video-errors":112,"./peerconnectionmanager":87,"./room":90,"./transport":93}],83:[function(require,module,exports){
+},{"../../util":134,"../../util/cancelablepromise":131,"../../util/twilio-video-errors":139,"./peerconnectionmanager":114,"./room":117,"./transport":120}],110:[function(require,module,exports){
 'use strict';
 
 var Filter = require('../../util/filter');
@@ -18300,7 +19735,7 @@ IceBox.prototype.update = function update(iceState) {
 
 module.exports = IceBox;
 
-},{"../../util/filter":106}],84:[function(require,module,exports){
+},{"../../util/filter":133}],111:[function(require,module,exports){
 'use strict';
 
 var constants = require('../../util/constants');
@@ -18414,7 +19849,7 @@ SignalingV2.prototype.createLocalParticipantSignaling = function createLocalPart
 
 module.exports = SignalingV2;
 
-},{"../":75,"../../sip":94,"../../util":107,"../../util/constants":105,"./cancelableroomsignalingpromise":82,"./localparticipant":85,"./sipjsmediahandler":91,"util":119}],85:[function(require,module,exports){
+},{"../":102,"../../sip":121,"../../util":134,"../../util/constants":132,"./cancelableroomsignalingpromise":109,"./localparticipant":112,"./sipjsmediahandler":118,"util":146}],112:[function(require,module,exports){
 'use strict';
 
 var getTrackState = require('./track').getState;
@@ -18461,7 +19896,7 @@ LocalParticipantV2.prototype.getState = function getState() {
 
 module.exports = LocalParticipantV2;
 
-},{"../participant":77,"./track":92,"util":119}],86:[function(require,module,exports){
+},{"../participant":104,"./track":119,"util":146}],113:[function(require,module,exports){
 'use strict';
 
 var WebRTC = require('@twilio/webrtc');
@@ -19131,7 +20566,7 @@ function isSenderOfKind(kind, sender) {
 
 module.exports = PeerConnectionV2;
 
-},{"../../../lib/statemachine":95,"../../stats/statsreport":102,"../../util":107,"../../util/twilio-video-errors":112,"./icebox":83,"@twilio/webrtc":37,"util":119}],87:[function(require,module,exports){
+},{"../../../lib/statemachine":122,"../../stats/statsreport":129,"../../util":134,"../../util/twilio-video-errors":139,"./icebox":110,"@twilio/webrtc":37,"util":146}],114:[function(require,module,exports){
 'use strict';
 
 var inherits = require('util').inherits;
@@ -19441,7 +20876,7 @@ function createDummyAudioMediaStreamTrack(audioContext) {
 
 module.exports = PeerConnectionManager;
 
-},{"../../queueingeventemitter":72,"../../util":107,"./peerconnection":86,"@twilio/webrtc":37,"util":119}],88:[function(require,module,exports){
+},{"../../queueingeventemitter":99,"../../util":134,"./peerconnection":113,"@twilio/webrtc":37,"util":146}],115:[function(require,module,exports){
 'use strict';
 
 var inherits = require('util').inherits;
@@ -19488,7 +20923,7 @@ RecordingV2.prototype.update = function update(recording) {
 
 module.exports = RecordingV2;
 
-},{"../recording":78,"util":119}],89:[function(require,module,exports){
+},{"../recording":105,"util":146}],116:[function(require,module,exports){
 'use strict';
 
 var inherits = require('util').inherits;
@@ -19587,7 +21022,7 @@ RemoteParticipantV2.prototype.addTrack = function addTrack(track) {
 
 module.exports = RemoteParticipantV2;
 
-},{"../remoteparticipant":79,"./track":92,"util":119}],90:[function(require,module,exports){
+},{"../remoteparticipant":106,"./track":119,"util":146}],117:[function(require,module,exports){
 'use strict';
 
 var inherits = require('util').inherits;
@@ -19899,7 +21334,7 @@ function periodicallyPublishStats(roomV2, localParticipant, transport, intervalM
 
 module.exports = RoomV2;
 
-},{"../../util":107,"../room":80,"./recording":88,"./remoteparticipant":89,"util":119}],91:[function(require,module,exports){
+},{"../../util":134,"../room":107,"./recording":115,"./remoteparticipant":116,"util":146}],118:[function(require,module,exports){
 'use strict';
 
 var SIP = require('../../sip');
@@ -20005,7 +21440,7 @@ function getRoomState(message) {
 
 module.exports = SIPJSMediaHandler;
 
-},{"../../sip":94}],92:[function(require,module,exports){
+},{"../../sip":121}],119:[function(require,module,exports){
 'use strict';
 
 var inherits = require('util').inherits;
@@ -20061,7 +21496,7 @@ TrackV2.prototype.update = function update(track) {
 
 module.exports = TrackV2;
 
-},{"../track":81,"util":119}],93:[function(require,module,exports){
+},{"../track":108,"util":146}],120:[function(require,module,exports){
 'use strict';
 
 var constants = require('../../util/constants');
@@ -20639,7 +22074,7 @@ function setupEventListeners(transport, session, ua) {
 
 module.exports = Transport;
 
-},{"../../../package.json":114,"../../sip":94,"../../statemachine":95,"../../util":107,"../../util/constants":105,"../../util/insightspublisher":108,"../../util/insightspublisher/null":109,"../../util/twilio-video-errors":112,"./sipjsmediahandler":91,"util":119}],94:[function(require,module,exports){
+},{"../../../package.json":141,"../../sip":121,"../../statemachine":122,"../../util":134,"../../util/constants":132,"../../util/insightspublisher":135,"../../util/insightspublisher/null":136,"../../util/twilio-video-errors":139,"./sipjsmediahandler":118,"util":146}],121:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -20658,7 +22093,7 @@ module.exports = require('@twilio/sip.js/src/SIP')({
 });
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"@twilio/sip.js/src/SIP":19,"@twilio/sip.js/src/Transport":28,"ws":115}],95:[function(require,module,exports){
+},{"@twilio/sip.js/src/SIP":19,"@twilio/sip.js/src/Transport":28,"ws":142}],122:[function(require,module,exports){
 'use strict';
 
 var EventEmitter = require('events').EventEmitter;
@@ -21113,7 +22548,7 @@ function createUnreachableError(here, there) {
 
 module.exports = StateMachine;
 
-},{"./util":107,"events":54,"util":119}],96:[function(require,module,exports){
+},{"./util":134,"events":80,"util":146}],123:[function(require,module,exports){
 'use strict';
 
 var inherits = require('util').inherits;
@@ -21157,7 +22592,7 @@ inherits(LocalAudioTrackStats, LocalTrackStats);
 
 module.exports = LocalAudioTrackStats;
 
-},{"./localtrackstats":97,"util":119}],97:[function(require,module,exports){
+},{"./localtrackstats":124,"util":146}],124:[function(require,module,exports){
 'use strict';
 
 var inherits = require('util').inherits;
@@ -21202,7 +22637,7 @@ inherits(LocalTrackStats, TrackStats);
 
 module.exports = LocalTrackStats;
 
-},{"./trackstats":103,"util":119}],98:[function(require,module,exports){
+},{"./trackstats":130,"util":146}],125:[function(require,module,exports){
 'use strict';
 
 var inherits = require('util').inherits;
@@ -21284,7 +22719,7 @@ inherits(LocalVideoTrackStats, LocalTrackStats);
 
 module.exports = LocalVideoTrackStats;
 
-},{"./localtrackstats":97,"util":119}],99:[function(require,module,exports){
+},{"./localtrackstats":124,"util":146}],126:[function(require,module,exports){
 'use strict';
 
 var inherits = require('util').inherits;
@@ -21322,7 +22757,7 @@ inherits(RemoteAudioTrackStats, RemoteTrackStats);
 
 module.exports = RemoteAudioTrackStats;
 
-},{"./remotetrackstats":100,"util":119}],100:[function(require,module,exports){
+},{"./remotetrackstats":127,"util":146}],127:[function(require,module,exports){
 'use strict';
 
 var inherits = require('util').inherits;
@@ -21360,7 +22795,7 @@ inherits(RemoteTrackStats, TrackStats);
 
 module.exports = RemoteTrackStats;
 
-},{"./trackstats":103,"util":119}],101:[function(require,module,exports){
+},{"./trackstats":130,"util":146}],128:[function(require,module,exports){
 'use strict';
 
 var inherits = require('util').inherits;
@@ -21413,7 +22848,7 @@ inherits(RemoteVideoTrackStats, RemoteTrackStats);
 
 module.exports = RemoteVideoTrackStats;
 
-},{"./remotetrackstats":100,"util":119}],102:[function(require,module,exports){
+},{"./remotetrackstats":127,"util":146}],129:[function(require,module,exports){
 'use strict';
 
 var LocalAudioTrackStats = require('./localaudiotrackstats');
@@ -21470,7 +22905,7 @@ function StatsReport(peerConnectionId, statsResponse) {
 
 module.exports = StatsReport;
 
-},{"./localaudiotrackstats":96,"./localvideotrackstats":98,"./remoteaudiotrackstats":99,"./remotevideotrackstats":101}],103:[function(require,module,exports){
+},{"./localaudiotrackstats":123,"./localvideotrackstats":125,"./remoteaudiotrackstats":126,"./remotevideotrackstats":128}],130:[function(require,module,exports){
 'use strict';
 
 /**
@@ -21519,7 +22954,7 @@ function TrackStats(trackId, statsReport) {
 
 module.exports = TrackStats;
 
-},{}],104:[function(require,module,exports){
+},{}],131:[function(require,module,exports){
 'use strict';
 
 /**
@@ -21637,7 +23072,7 @@ CancelablePromise.prototype.then = function then() {
 
 module.exports = CancelablePromise;
 
-},{}],105:[function(require,module,exports){
+},{}],132:[function(require,module,exports){
 'use strict';
 
 module.exports.DEFAULT_ENVIRONMENT = 'prod';
@@ -21715,7 +23150,7 @@ module.exports.typeErrors = {
   }
 };
 
-},{}],106:[function(require,module,exports){
+},{}],133:[function(require,module,exports){
 'use strict';
 
 function Filter(options) {
@@ -21764,7 +23199,7 @@ Filter.prototype.update = function update(entry) {
 
 module.exports = Filter;
 
-},{}],107:[function(require,module,exports){
+},{}],134:[function(require,module,exports){
 /* globals mozRTCPeerConnection */
 'use strict';
 
@@ -22128,7 +23563,7 @@ module.exports.buildLogLevels = buildLogLevels;
 module.exports.trackClass = trackClass;
 module.exports.getSdpFormat = getSdpFormat;
 
-},{"./constants":105}],108:[function(require,module,exports){
+},{"./constants":132}],135:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -22394,7 +23829,7 @@ function reconnect(publisher, token, sdkName, sdkVersion, options) {
 module.exports = InsightsPublisher;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"events":54,"util":119,"ws":115}],109:[function(require,module,exports){
+},{"events":80,"util":146,"ws":142}],136:[function(require,module,exports){
 'use strict';
 
 /**
@@ -22435,7 +23870,7 @@ InsightsPublisher.prototype.publish = function publish() {
 
 module.exports = InsightsPublisher;
 
-},{}],110:[function(require,module,exports){
+},{}],137:[function(require,module,exports){
 /* eslint no-console:0 */
 'use strict';
 
@@ -22685,7 +24120,7 @@ Log.prototype.throw = function throwFn(error, customMessage) {
 
 module.exports = Log;
 
-},{"./constants":105}],111:[function(require,module,exports){
+},{"./constants":132}],138:[function(require,module,exports){
 'use strict';
 
 var EventEmitter = require('events').EventEmitter;
@@ -22822,7 +24257,7 @@ TimeoutPromise.prototype.then = function then() {
 
 module.exports = TimeoutPromise;
 
-},{"./":107,"events":54,"util":119}],112:[function(require,module,exports){
+},{"./":134,"events":80,"util":146}],139:[function(require,module,exports){
 // NOTE: Do not edit this file. This code is auto-generated. Contact the
 // Twilio SDK Team for more information.
 
@@ -23338,7 +24773,7 @@ inherits(ConfigurationAcquireTurnFailedError, TwilioError);
 exports.ConfigurationAcquireTurnFailedError = ConfigurationAcquireTurnFailedError;
 Object.defineProperty(TwilioErrorByCode, 53501, { value: ConfigurationAcquireTurnFailedError });
 
-},{"./twilioerror":113,"util":119}],113:[function(require,module,exports){
+},{"./twilioerror":140,"util":146}],140:[function(require,module,exports){
 'use strict';
 
 var inherits = require('util').inherits;
@@ -23383,7 +24818,7 @@ TwilioError.prototype.toString = function toString() {
 
 module.exports = TwilioError;
 
-},{"util":119}],114:[function(require,module,exports){
+},{"util":146}],141:[function(require,module,exports){
 module.exports={
   "_from": "twilio-video@^1.0.0",
   "_id": "twilio-video@1.2.2",
@@ -23527,13 +24962,13 @@ module.exports={
   "version": "1.2.2"
 }
 
-},{}],115:[function(require,module,exports){
+},{}],142:[function(require,module,exports){
 module.exports = WebSocket;
 
-},{}],116:[function(require,module,exports){
+},{}],143:[function(require,module,exports){
 exports.XMLHttpRequest = XMLHttpRequest;
 
-},{}],117:[function(require,module,exports){
+},{}],144:[function(require,module,exports){
 if (typeof Object.create === 'function') {
   // implementation from standard node.js 'util' module
   module.exports = function inherits(ctor, superCtor) {
@@ -23558,14 +24993,14 @@ if (typeof Object.create === 'function') {
   }
 }
 
-},{}],118:[function(require,module,exports){
+},{}],145:[function(require,module,exports){
 module.exports = function isBuffer(arg) {
   return arg && typeof arg === 'object'
     && typeof arg.copy === 'function'
     && typeof arg.fill === 'function'
     && typeof arg.readUInt8 === 'function';
 }
-},{}],119:[function(require,module,exports){
+},{}],146:[function(require,module,exports){
 (function (process,global){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -24155,15 +25590,19 @@ function hasOwnProperty(obj, prop) {
 }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./support/isBuffer":118,"_process":55,"inherits":117}],120:[function(require,module,exports){
+},{"./support/isBuffer":145,"_process":82,"inherits":144}],147:[function(require,module,exports){
 'use strict';
 
 var Video = require('twilio-video');
 
+const axios = require("axios");
+const annyang = require("annyang");
+  const apiUrl = "http://localhost:3001";
 var activeRoom;
 var previewTracks;
 var identity;
 var roomName;
+
 
 // Attach the Tracks to the DOM.
 function attachTracks(tracks, container) {
@@ -24201,7 +25640,7 @@ window.addEventListener('beforeunload', leaveRoomIfJoined);
 $.getJSON('/token', function(data) {
   identity = data.identity;
   document.getElementById('room-controls').style.display = 'block';
-
+  document.getElementById('identifier').innerHTML = identity;
   // Bind button to join Room.
   document.getElementById('button-join').onclick = function() {
     roomName = document.getElementById('room-name').value;
@@ -24313,59 +25752,10 @@ function openPreview() {
     log('Unable to access Camera and Microphone');
   });
 }
-/*
-const record = require('node-record-lpcm16');
 
-// Imports the Google Cloud client library
-const Speech = require('@google-cloud/speech');
-
-// Instantiates a client
-const speech = Speech();
-
-// The encoding of the audio file, e.g. 'LINEAR16'
-const encoding = 'LINEAR16';
-
-// The sample rate of the audio file in hertz, e.g. 16000
-const sampleRateHertz = 16000;
-
-// The BCP-47 language code to use, e.g. 'en-US'
-const languageCode = 'en-US';
-
-const request = {
-  config: {
-    encoding: encoding,
-    sampleRateHertz: sampleRateHertz,
-    languageCode: languageCode
-  },
-  interimResults: true // If you want interim results, set this to true
-};
-
-// Create a recognize stream
-const recognizeStream = speech.streamingRecognize(request)
-  .on('error', console.error)
-  .on('data', (data) =>
-      process.stdout.write(
-        (data.results[0] && data.results[0].alternatives[0])
-          ? `Transcription: ${data.results[0].alternatives[0].transcript}\n`
-          : `\n\nReached transcription time limit, press Ctrl+C\n`));
-
-// Start recording and send the microphone input to the Speech API
-record
-  .start({
-    sampleRateHertz: sampleRateHertz,
-    threshold: 0,
-    // Other options, see https://www.npmjs.com/package/node-record-lpcm16#options
-    verbose: false,
-    recordProgram: 'rec', // Try also "arecord" or "sox"
-    silence: '10.0'
-  })
-  .on('error', console.error)
-  .pipe(recognizeStream);
-
-console.log('Listening, press Ctrl+C to stop.');
 document.getElementById('button-preview').onclick = function() {
   openPreview();
-};*/
+};
 
 // Activity log.
 function log(message) {
@@ -24380,4 +25770,72 @@ function leaveRoomIfJoined() {
     activeRoom.disconnect();
   }
 }
-},{"twilio-video":63}]},{},[120]);
+  console.log(3);
+  if (annyang) {
+    // Let's define a command.
+    let commands = {
+      hello: function() {
+        console.log("Hello world!");
+      }
+    };
+
+    // Add our commands to annyang
+    annyang.addCommands(commands);
+
+    // Start listening.
+    annyang.start({ autoRestart: true, continuous: false });
+    annyang.addCallback("result", function(phrases) {
+      const snippet = phrases[0];
+
+      axios
+        .post(
+          apiUrl + "/snippets",
+          { transcript: snippet, call_id: 1, participant: document.getElementById('identifier').innerHTML },
+        )
+        .then(response => {
+          const snippet = response.data;
+          const document = {            
+            content: snippet.transcript,
+            type: "PLAIN_TEXT"
+          };
+          return axios
+            .post("https://language.googleapis.com/v1/documents:analyzeEntities?key=AIzaSyBcSS7wkzf-xhWzIG8Il1YlDCwI_oxj5Xw", {document,"encodingType": "UTF8"});
+        })
+        .then(response => {
+          let { entities } = response.data;
+          console.log("Entities:");
+          entities = entities.map(entity => {
+            console.log(entity.name);
+            if (entity.metadata && entity.metadata.wikipedia_url) {
+              console.log(
+                ` - Wikipedia URL: ${entity.metadata.wikipedia_url}`
+              );
+            }
+            return axios
+              .post(
+                apiUrl + "/entities",
+                { wikipedia_link: entity.metadata ? entity.metadata.wikipedia_url : null, name: entity.name }
+              )
+              .then(response => {
+                const entity = response.data;
+                return axios.post(apiUrl+"/references",{entity_id:entity.id, snippet_id: snippet.id});
+              });
+          });
+          return axios.all(entities);
+        })
+        .catch(err => {
+          console.log('ERROR', err);
+        });
+
+        axios
+        .get(
+          apiUrl + "/snippets"
+        )
+        .then(response => {
+          response.data.map(snippet => {
+            document.getElementById("insight").innerHTML += snippet.transcript + "\n";
+          });
+        })
+    });
+  }
+},{"annyang":54,"axios":55,"twilio-video":90}]},{},[147]);

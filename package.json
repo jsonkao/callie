@@ -38,6 +38,8 @@
   "homepage": "https://github.com/jkao1/callie#readme",
   "dependencies": {
     "@google-cloud/speech": "^0.10.3",
+    "annyang": "^2.6.0",
+    "axios": "^0.16.2",
     "copy-webpack-plugin": "^4.0.1",
     "dotenv": "^4.0.0",
     "express": "^4.15.2",
