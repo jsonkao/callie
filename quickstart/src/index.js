@@ -155,6 +155,7 @@ function openPreview() {
     log('Unable to access Camera and Microphone');
   });
 }
+/*
 const record = require('node-record-lpcm16');
 
 // Imports the Google Cloud client library
@@ -206,7 +207,7 @@ record
 console.log('Listening, press Ctrl+C to stop.');
 document.getElementById('button-preview').onclick = function() {
   openPreview();
-};
+};*/
 
 // Activity log.
 function log(message) {
