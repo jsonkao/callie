@@ -87,6 +87,7 @@ function roomJoined(room) {
   // Attach LocalParticipant's Tracks, if not already attached.
   var previewContainer = document.getElementById('local-media');
   document.getElementById('button-preview').style.display = 'none';
+  document.getElementById('local-media').style.border = '1px solid #cececc';
   if (!previewContainer.querySelector('video')) {
     attachParticipantTracks(room.localParticipant, previewContainer);
   }

@@ -1,29 +1,32 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 module.exports={
-  "_from": "@twilio/sip.js@^0.7.6",
+  "_args": [
+    [
+      "@twilio/sip.js@0.7.6",
+      "/Users/jasonkao/callie"
+    ]
+  ],
+  "_from": "@twilio/sip.js@0.7.6",
   "_id": "@twilio/sip.js@0.7.6",
   "_inBundle": false,
   "_integrity": "sha1-kYbGlzay7AksAHkQh7Cnhol1wUw=",
   "_location": "/@twilio/sip.js",
   "_phantomChildren": {},
   "_requested": {
-    "type": "range",
+    "type": "version",
     "registry": true,
-    "raw": "@twilio/sip.js@^0.7.6",
+    "raw": "@twilio/sip.js@0.7.6",
     "name": "@twilio/sip.js",
     "escapedName": "@twilio%2fsip.js",
     "scope": "@twilio",
-    "rawSpec": "^0.7.6",
+    "rawSpec": "0.7.6",
     "saveSpec": null,
-    "fetchSpec": "^0.7.6"
+    "fetchSpec": "0.7.6"
   },
-  "_requiredBy": [
-    "/twilio-video"
-  ],
+  "_requiredBy": [],
   "_resolved": "https://registry.npmjs.org/@twilio/sip.js/-/sip.js-0.7.6.tgz",
-  "_shasum": "9186c69736b2ec092c00791087b0a7868975c14c",
-  "_spec": "@twilio/sip.js@^0.7.6",
-  "_where": "/Users/jasonkao/video-quickstart-js/node_modules/twilio-video",
+  "_spec": "0.7.6",
+  "_where": "/Users/jasonkao/callie",
   "author": {
     "name": "OnSIP",
     "email": "developer@onsip.com",
@@ -35,13 +38,11 @@ module.exports={
   "bugs": {
     "url": "https://github.com/onsip/SIP.js/issues"
   },
-  "bundleDependencies": false,
   "contributors": [
     {
       "url": "https://github.com/onsip/SIP.js/blob/master/THANKS.md"
     }
   ],
-  "deprecated": false,
   "description": "A simple, intuitive, and powerful JavaScript signaling library",
   "devDependencies": {
     "beefy": "^2.1.5",
@@ -14088,30 +14089,33 @@ module.exports = TrackMatcher;
 
 },{"./":49,"./sdp":51}],53:[function(require,module,exports){
 module.exports={
-  "_from": "@twilio/webrtc@^1.0.0",
+  "_args": [
+    [
+      "@twilio/webrtc@1.0.0",
+      "/Users/jasonkao/callie"
+    ]
+  ],
+  "_from": "@twilio/webrtc@1.0.0",
   "_id": "@twilio/webrtc@1.0.0",
   "_inBundle": false,
   "_integrity": "sha512-6ioEOuzeYoAVIO44PM884Ni1dH0Ufln68YFobqGHjRNWpJ4RZd2AkJ1FmMJgOoeS9IAw9AY3bHcHC0p4hnuo/g==",
   "_location": "/@twilio/webrtc",
   "_phantomChildren": {},
   "_requested": {
-    "type": "range",
+    "type": "version",
     "registry": true,
-    "raw": "@twilio/webrtc@^1.0.0",
+    "raw": "@twilio/webrtc@1.0.0",
     "name": "@twilio/webrtc",
     "escapedName": "@twilio%2fwebrtc",
     "scope": "@twilio",
-    "rawSpec": "^1.0.0",
+    "rawSpec": "1.0.0",
     "saveSpec": null,
-    "fetchSpec": "^1.0.0"
+    "fetchSpec": "1.0.0"
   },
-  "_requiredBy": [
-    "/twilio-video"
-  ],
+  "_requiredBy": [],
   "_resolved": "https://registry.npmjs.org/@twilio/webrtc/-/webrtc-1.0.0.tgz",
-  "_shasum": "fbb968259c08fac774a6723bf5540ec5eb53425e",
-  "_spec": "@twilio/webrtc@^1.0.0",
-  "_where": "/Users/jasonkao/video-quickstart-js/node_modules/twilio-video",
+  "_spec": "1.0.0",
+  "_where": "/Users/jasonkao/callie",
   "author": {
     "name": "Manjesh Malavalli",
     "email": "mmalavalli@twilio.com"
@@ -14119,7 +14123,6 @@ module.exports={
   "bugs": {
     "url": "https://github.com/twilio/twilio-webrtc.js/issues"
   },
-  "bundleDependencies": false,
   "contributors": [
     {
       "name": "Mark Roberts",
@@ -14130,7 +14133,6 @@ module.exports={
       "email": "rrowland@twilio.com"
     }
   ],
-  "deprecated": false,
   "description": "WebRTC-related APIs and shims used by twilio-video.js",
   "devDependencies": {
     "browserify": "^14.4.0",
@@ -23385,29 +23387,34 @@ module.exports = TwilioError;
 
 },{"util":119}],114:[function(require,module,exports){
 module.exports={
-  "_from": "twilio-video@^1.0.0",
+  "_args": [
+    [
+      "twilio-video@1.2.2",
+      "/Users/jasonkao/callie"
+    ]
+  ],
+  "_from": "twilio-video@1.2.2",
   "_id": "twilio-video@1.2.2",
   "_inBundle": false,
   "_integrity": "sha1-tITLjU/S/xy1ZxcuqZTsdVrArTo=",
   "_location": "/twilio-video",
   "_phantomChildren": {},
   "_requested": {
-    "type": "range",
+    "type": "version",
     "registry": true,
-    "raw": "twilio-video@^1.0.0",
+    "raw": "twilio-video@1.2.2",
     "name": "twilio-video",
     "escapedName": "twilio-video",
-    "rawSpec": "^1.0.0",
+    "rawSpec": "1.2.2",
     "saveSpec": null,
-    "fetchSpec": "^1.0.0"
+    "fetchSpec": "1.2.2"
   },
   "_requiredBy": [
     "/"
   ],
   "_resolved": "https://registry.npmjs.org/twilio-video/-/twilio-video-1.2.2.tgz",
-  "_shasum": "b484cb8d4fd2ff1cb567172ea994ec755ac0ad3a",
-  "_spec": "twilio-video@^1.0.0",
-  "_where": "/Users/jasonkao/video-quickstart-js",
+  "_spec": "1.2.2",
+  "_where": "/Users/jasonkao/callie",
   "author": {
     "name": "Mark Andrus Roberts",
     "email": "mroberts@twilio.com"
@@ -23419,7 +23426,6 @@ module.exports={
   "bugs": {
     "url": "https://github.com/twilio/twilio-video.js/issues"
   },
-  "bundleDependencies": false,
   "contributors": [
     {
       "name": "Ryan Rowland",
@@ -23436,7 +23442,6 @@ module.exports={
     "ws": "^2.3.1",
     "xmlhttprequest": "^1.8.0"
   },
-  "deprecated": false,
   "description": "Twilio Video JavaScript library",
   "devDependencies": {
     "browserify": "^14.3.0",
@@ -24245,6 +24250,7 @@ function roomJoined(room) {
   // Attach LocalParticipant's Tracks, if not already attached.
   var previewContainer = document.getElementById('local-media');
   document.getElementById('button-preview').style.display = 'none';
+  document.getElementById('local-media').style.border = '1px solid #cececc';
   if (!previewContainer.querySelector('video')) {
     attachParticipantTracks(room.localParticipant, previewContainer);
   }
