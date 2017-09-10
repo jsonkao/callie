@@ -137,6 +137,7 @@ function roomJoined(room) {
     activeRoom = null;
     document.getElementById('button-join').style.display = 'inline';
     document.getElementById('button-leave').style.display = 'none';
+    document.getElementById('button-preview').style.display = 'block';
   });
 }
 

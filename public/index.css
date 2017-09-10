@@ -44,7 +44,7 @@ div#remote-media > video ~ video {
     z-index: 1;
     width: 250px;
     border: 1px solid #fff;
-    margin-right: 7px;
+    margin-left: 10px;
     position: relative;
 }
 
@@ -71,6 +71,7 @@ div#controls button {
 div#controls div#room-controls {
     position: fixed;
     bottom: 0px;
+    width: 250px;
 }
 
 div#controls div#room-controls input {
@@ -96,11 +97,21 @@ div#controls div#preview div#local-media {
     background-position: center;
     background-repeat: no-repeat;
     margin: 0 auto;
+    max-height: 153px;
 }
 
 div#controls div#preview div#local-media video {
     max-width: 100%;
     border: none;
+}
+
+div#controls div#preview div#local-media div {
+  position: relative;
+  font-size: 14px;
+  font-family: "PT Sans";
+    top: -34px;
+    left: 3px;
+    color: #fff;
 }
 
 div#controls div#preview button#button-preview {

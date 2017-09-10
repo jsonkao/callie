@@ -1,9 +1,9 @@
 import React from "react";
 import { render } from "react-dom";
 import Notes from "./Notes";
-import { postSnippet } from "./annyang";
+import { continuousAudioStream } from "./annyang";
 
-postSnippet();
+continuousAudioStream();
 
 window.__RAILS_DATA__ = {
   snippets: [
