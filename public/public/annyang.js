@@ -1,7 +1,7 @@
 import axios from "axios";
 
-//const apiUrl = "http://callie-api2-dev.us-east-1.elasticbeanstalk.com";
-const apiUrl = "http://localhost:3001";
+//export const apiUrl = "http://callie-api2-dev.us-east-1.elasticbeanstalk.com";
+export const apiUrl = "http://localhost:3001";
 
 export const continuousAudioStream = () => {
   if (annyang) {
@@ -19,9 +19,7 @@ export const continuousAudioStream = () => {
     annyang.start({ autoRestart: true, continuous: false });
     annyang.addCallback("result", function(phrases) {
       const snippet = phrases[0];
-      
-// TODO: check if item in db, then PUT mention++
-// TODO: transcripts should be array of all transcripts?
+
       axios
         .post(
           apiUrl + "/snippets",
@@ -33,7 +31,8 @@ export const continuousAudioStream = () => {
             content: snippet.transcript,
             type: "PLAIN_TEXT"
           };
-          return axios.post("https://language.googleapis.com/v1/documents:analyzeEntities?key=AIzaSyBcSS7wkzf-xhWzIG8Il1YlDCwI_oxj5Xw", {document,"encodingType": "UTF8"});
+          return axios
+            .post("https://language.googleapis.com/v1/documents:analyzeEntities?key=AIzaSyBcSS7wkzf-xhWzIG8Il1YlDCwI_oxj5Xw", {document,"encodingType": "UTF8"});
         })
         .then(response => {
           let { entities } = response.data;
@@ -49,13 +48,23 @@ export const continuousAudioStream = () => {
               .post(
                 apiUrl + "/entities",
                 { wikipedia_link: entity.metadata ? entity.metadata.wikipedia_url : null, name: entity.name }
-              );            
+              )
+              .then(response => {
+                const entity = response.data;
+                return axios.post(apiUrl+"/references",{entity_id:entity.id, snippet_id: snippet.id});
+              });
           });
           return axios.all(entities);
         })
         .catch(err => {
           console.log('ERROR', err);
         });
+
+      axios.get(apiUrl + "/snippets").then(response => window.__RAILS_DATA__.snippets = response.data)
+      axios.get(apiUrl + "/references").then(response => window.__RAILS_DATA__.references = response.data)
+      axios.get(apiUrl + "/entities").then(response => window.__RAILS_DATA__.entities = response.data)
+      axios.get(apiUrl + "/calls").then(response => window.__RAILS_DATA__.calls = response.data)
     });
+   
   }
 };
