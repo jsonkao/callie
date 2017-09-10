@@ -1,6 +1,9 @@
 import React from "react";
 import { render } from "react-dom";
 import Notes from "./Notes";
+import { postSnippet } from "./annyang";
+
+postSnippet();
 
 class App extends React.Component {
   render() {
