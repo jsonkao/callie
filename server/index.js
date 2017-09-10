@@ -9,7 +9,6 @@
  */
 require("dotenv").load();
 
-var fs = require("fs");
 var http = require("http");
 var path = require("path");
 var AccessToken = require("twilio").jwt.AccessToken;
@@ -20,26 +19,9 @@ var randomName = require("./randomname");
 // Create Express webapp.
 var app = express();
 
-// Set up the paths for the examples.
-["mediadevices", "localvideosnapshot"].forEach(function(example) {
-  var examplePath = path.join(__dirname, `../examples/${example}/public`);
-  app.use(`/${example}`, express.static(examplePath));
-});
+var publicFolder = path.join(__dirname, "../public");
+app.use("/", express.static(publicFolder));
 
-// Set up the path for the quickstart.
-var quickstartPath = path.join(__dirname, "../quickstart/public");
-app.use("/quickstart", express.static(quickstartPath));
-
-/**
- * Default to the Quick Start application.
- */
-app.get("/", function(request, response) {
-  response.redirect("/quickstart");
-});
-
-app.post("/snippet", function(request, response) {
-  
-})
 /**
  * Generate an Access Token for a chat application user - it generates a random
  * username for the client requesting a token, and takes a device ID as a query

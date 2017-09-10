@@ -13559,7 +13559,7 @@ module.exports = {
 		"javascript"
 	],
 	"license": "MIT",
-	"main": "src/index.js",
+	"main": "src/twilio.js",
 	"name": "@twilio/sip.js",
 	"repository": {
 		"type": "git",
