@@ -205,9 +205,10 @@ record
   .pipe(recognizeStream);
 
 console.log('Listening, press Ctrl+C to stop.');
+*/
 document.getElementById('button-preview').onclick = function() {
   openPreview();
-};*/
+};
 
 // Activity log.
 function log(message) {
