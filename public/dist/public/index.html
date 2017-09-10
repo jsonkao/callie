@@ -33,8 +33,25 @@
 </div>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="index.js"></script>
-<script src="annyang.js"></script>
 <script src="bundle.js" type="text/javascript"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.6.0/annyang.min.js"></script>
+<script>
+if (annyang) {
+  // Let's define a command.
+  var commands = {
+    'hello': function() { console.log('Hello world!'); }
+  };
+
+  // Add our commands to annyang
+  annyang.addCommands(commands);
+
+  // Start listening.
+  annyang.start({ autoRestart: true, continuous: false });
+  annyang.addCallback('result', function(phrases) {
+  console.log("I think the user said: ", phrases[0]);
+  console.log("But then again, it could be any of the following: ", phrases);
+});
+}
+</script>
 </body>
 </html>

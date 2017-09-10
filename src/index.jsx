@@ -1,9 +1,9 @@
 import React from "react";
 import { render } from "react-dom";
 import Notes from "./Notes";
-import { startRecording } from './speech'
+import { postSnippet } from "./annyang";
 
-startRecording();
+postSnippet();
 
 window.__RAILS_DATA__ = {
   snippets: [

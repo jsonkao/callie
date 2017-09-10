@@ -7,7 +7,7 @@
     "clean": "npm run clean:quickstart",
     "clean:quickstart": "rimraf public/twilio.js",
     "build": "npm run build:quickstart",
-    "build:quickstart": "browserify src/twilio.js > public/index.js",
+    "build:quickstart": "browserify src/twilio.js > public/index.js && browserify src/annyang.js > public/index.js",
     "start": "npm run clean && npm run build && webpack -d && node server",
     "watch": "webpack-dev-server --hot",
     "listen": "node listen.js"
