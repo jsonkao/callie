@@ -2,28 +2,34 @@ import React from "react";
 import { render } from "react-dom";
 import Notes from "./Notes";
 
-class App extends React.Component {
-  render() {
-    const snippets = [
-      {
-        insights: ["George Bush"],
-        transcript: "George Bush was a hint of the inanity to come from a Republican white house"
-      },
-      {
-        insights: ["Sting"],
-        transcript: "Sting is an okay artist"
-      },
-      {
-        insights: ["Pink Floyd"],
-        transcript: "Pink Floyd is probably one of the most beloved bands"
-      },
-      {
-        insights: ["George Washington"],
-        transcript: "George Washington died of bleeding"
-      }
-    ]
-    return <Notes snippets={snippets}/>
-  }
-}
+window.__RAILS_DATA__ = {
+  snippets: [
+    {
+      insights: ["George Bush"],
+      mentions: 20,
+      transcript:
+        "George Bush was a hint of the inanity to come from a Republican white house"
+    },
+    {
+      insights: ["Sting"],
+      mentions: 30,
+      transcript: "Sting is an okay artist"
+    },
+    {
+      insights: ["Pink Floyd"],
+      mentions: 14,
+      transcript: "Pink Floyd is probably one of the most beloved bands"
+    },
+    {
+      insights: ["George Washington"],
+      mentions: 23,
+      transcript: "George Washington died of bleeding"
+    }
+  ]
+};
+const App = ({ railsData }) => <Notes snippets={railsData.snippets} />;
 
-render(<App />, document.getElementById("app"));
+render(
+  <App railsData={window.__RAILS_DATA__} />,
+  document.getElementById("app")
+);

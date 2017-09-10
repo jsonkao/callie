@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import injectSheet from "react-jss";
+import wiki from "wikijs";
 
 const styles = {
   image: {
@@ -8,7 +9,7 @@ const styles = {
     width: "100px"
   },
   text: {
-    fontSize: "1.5em"
+    fontSize: props => `${props.mentions / 10}em`
   }
 };
 
@@ -25,13 +26,16 @@ class Insight extends Component {
   };
 
   handleMouseOut = () => {
-    console.log("LEAVE");
     this.setState({ isPreviewOpen: false });
   };
 
   render() {
     const { isPreviewOpen } = this.state;
     const { insight, classes } = this.props;
+    let image;
+    wiki().page(insight).then(page => page.images()).then(images => {
+      image = images[0];
+    });
     return (
       <div>
         <div
@@ -41,11 +45,7 @@ class Insight extends Component {
         >
           {insight}
         </div>
-        {isPreviewOpen &&
-          <img
-            className={classes.image}
-            src="https://i.imgur.com/QSnupn0.jpg"
-          />}
+        {isPreviewOpen && <img className={classes.image} src={image} />}
       </div>
     );
   }

@@ -12,7 +12,7 @@ const Notes = ({ snippets, classes }) =>
   <div className={classes.Notes}>
     {snippets.map(snippet =>
       <div>
-        <Insight insight={snippet.insights} />
+        <Insight mentions={snippet.mentions} insight={snippet.insights} />
         {snippet.transcript}
       </div>
     )}
