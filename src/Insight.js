@@ -1,4 +1,16 @@
 import React, { Component } from "react";
+import injectSheet from "react-jss";
+
+const styles = {
+  image: {
+    padding: "10px",
+    height: "100px",
+    width: "100px"
+  },
+  text: {
+    fontSize: "1.5em"
+  }
+};
 
 class Insight extends Component {
   constructor(props) {
@@ -9,19 +21,34 @@ class Insight extends Component {
   }
 
   handleMouseOver = () => {
-    console.log("HOVERED")
     this.setState({ isPreviewOpen: true });
   };
 
+  handleMouseOut = () => {
+    console.log("LEAVE");
+    this.setState({ isPreviewOpen: false });
+  };
+
   render() {
-    const { isPreviewOpen, insight } = this.state;
+    const { isPreviewOpen } = this.state;
+    const { insight, classes } = this.props;
     return (
-      <div onMouseOver={this.handleMouseOver}>
-        {insight}
-        {isPreviewOpen && <img src="https://i.imgur.com/QSnupn0.jpg" />}
+      <div>
+        <div
+          className={classes.text}
+          onMouseOver={this.handleMouseOver}
+          onMouseOut={this.handleMouseOut}
+        >
+          {insight}
+        </div>
+        {isPreviewOpen &&
+          <img
+            className={classes.image}
+            src="https://i.imgur.com/QSnupn0.jpg"
+          />}
       </div>
     );
   }
 }
 
-export default Insight;
+export default injectSheet(styles)(Insight);

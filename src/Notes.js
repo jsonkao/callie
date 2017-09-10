@@ -1,9 +1,21 @@
 import React from "react";
 import Insight from "./Insight";
+import injectSheet from "react-jss";
 
-const Notes = ({ insights }) =>
-  <div>
-    {insights.map(insight => <Insight insight={insight} />)}
+const styles = {
+  Notes: {
+    position: "absolute",
+    right: 0
+  }
+};
+const Notes = ({ snippets, classes }) =>
+  <div className={classes.Notes}>
+    {snippets.map(snippet =>
+      <div>
+        <Insight insight={snippet.insights} />
+        {snippet.transcript}
+      </div>
+    )}
   </div>;
 
-export default Notes;
+export default injectSheet(styles)(Notes);

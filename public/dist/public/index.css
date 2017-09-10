@@ -13,7 +13,7 @@ p {
 }
 
 div#twilio {
-    display: none;
+    margin: 25px;
 }
 
 div#remote-media {
@@ -111,6 +111,7 @@ div#controls div#log {
     position: fixed;
     bottom: 0px;
     right: 0px;
+    margin: 20px;
 }
 
 div#controls div#room-controls {
@@ -140,6 +141,7 @@ div#controls div#log {
     padding: 20px;
     float: right;
     overflow-y: scroll;
+    margin: 20px;
 }
 
 div#controls div#log p {
